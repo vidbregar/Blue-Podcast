@@ -5,13 +5,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.network.PodcastClient;
@@ -36,7 +34,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         PodcastService podcastService = new PodcastClient().getPodcastService();
         PodcastViewModelFactory podcastViewModelFactory = new PodcastViewModelFactory(podcastService);
-        podcastViewModel = ViewModelProviders.of(this, podcastViewModelFactory).get(PodcastViewModel.class);
+        podcastViewModel = ViewModelProviders.of(getActivity(), podcastViewModelFactory).get(PodcastViewModel.class);
     }
 
     @Override
