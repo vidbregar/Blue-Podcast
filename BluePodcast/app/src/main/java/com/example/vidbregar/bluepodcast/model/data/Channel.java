@@ -1,4 +1,3 @@
-
 package com.example.vidbregar.bluepodcast.model.data;
 
 import com.google.gson.annotations.SerializedName;
@@ -10,7 +9,7 @@ public class Channel {
     @SerializedName("thumbnail")
     public String thumbnailUrl;
     @SerializedName("lastest_pub_date_ms")
-    public int lastestPubDateMs;
+    public String lastestPubDateMs;
     @SerializedName("website")
     public String website;
     @SerializedName("publisher")
@@ -20,7 +19,7 @@ public class Channel {
     @SerializedName("description")
     public String description;
 
-    public Channel(String id, String thumbnailUrl, int lastestPubDateMs, String website,
+    public Channel(String id, String thumbnailUrl, String lastestPubDateMs, String website,
                    String publisher, String title, String description) {
         this.id = id;
         this.thumbnailUrl = thumbnailUrl;
@@ -47,11 +46,11 @@ public class Channel {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public int getLastestPubDateMs() {
+    public String getLastestPubDateMs() {
         return lastestPubDateMs;
     }
 
-    public void setLastestPubDateMs(int lastestPubDateMs) {
+    public void setLastestPubDateMs(String lastestPubDateMs) {
         this.lastestPubDateMs = lastestPubDateMs;
     }
 

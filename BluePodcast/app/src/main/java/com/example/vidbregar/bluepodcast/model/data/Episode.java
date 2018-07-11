@@ -7,7 +7,7 @@ public class Episode {
     @SerializedName("title")
     public String title;
     @SerializedName("pub_date_ms")
-    public int publicationDateMiliseconds;
+    public String publicationDateMiliseconds;
     @SerializedName("description")
     public String description;
     @SerializedName("audio_length")
@@ -17,7 +17,7 @@ public class Episode {
     @SerializedName("audio")
     public String audioUrl;
 
-    public Episode(String title, int publicationDateMiliseconds, String description,
+    public Episode(String title, String publicationDateMiliseconds, String description,
                    int audioLength, String id, String audioUrl) {
         this.title = title;
         this.publicationDateMiliseconds = publicationDateMiliseconds;
@@ -35,11 +35,11 @@ public class Episode {
         this.title = title;
     }
 
-    public int getPublicationDateMiliseconds() {
+    public String getPublicationDateMiliseconds() {
         return publicationDateMiliseconds;
     }
 
-    public void setPublicationDateMiliseconds(int publicationDateMiliseconds) {
+    public void setPublicationDateMiliseconds(String publicationDateMiliseconds) {
         this.publicationDateMiliseconds = publicationDateMiliseconds;
     }
 

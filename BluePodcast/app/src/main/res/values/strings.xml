@@ -3,4 +3,5 @@
     <string name="nav_bar_menu_home">Home</string>
     <string name="nav_bar_menu_search">Search</string>
     <string name="nav_bar_menu_favorites">Favorites</string>
+    <string name="best_podcasts_label">Best podcasts</string>
 </resources>

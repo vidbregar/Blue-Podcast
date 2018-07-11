@@ -26,7 +26,7 @@ class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 return new FavoritesFragment();
             default:
-                throw new IllegalStateException("No fragment returned from the getItem ViewPager adapter");
+                return null;
         }
     }
 
