@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private MenuItem prevMenuItem;
 
     @BindView(R.id.view_pager)
-    ViewPager viewPager;
+    NonSwipeableViewPager viewPager;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
 
