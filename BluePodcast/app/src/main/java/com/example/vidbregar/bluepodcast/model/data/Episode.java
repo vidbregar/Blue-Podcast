@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName;
 public class Episode {
 
     @SerializedName("title")
-    public String title;
+    private String title;
     @SerializedName("pub_date_ms")
-    public String publicationDateMiliseconds;
+    private String publicationDateMiliseconds;
     @SerializedName("description")
-    public String description;
+    private String description;
     @SerializedName("audio_length")
-    public int audioLength;
+    private int audioLength;
     @SerializedName("id")
-    public String id;
+    private String id;
     @SerializedName("audio")
-    public String audioUrl;
+    private String audioUrl;
 
     public Episode(String title, String publicationDateMiliseconds, String description,
                    int audioLength, String id, String audioUrl) {

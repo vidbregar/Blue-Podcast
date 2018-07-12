@@ -2,7 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/podcast_item_cv"
+    android:id="@+id/podcast_icon_item_cv"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/podcast_thumbnail"
+            android:id="@+id/podcast_icon_thumbnail"
             android:layout_width="125dp"
             android:layout_height="125dp"
             android:scaleType="centerCrop"
@@ -25,7 +25,7 @@
             tools:src="@drawable/podcast_image" />
 
         <TextView
-            android:id="@+id/podcast_title_tv"
+            android:id="@+id/podcast_icon_title_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -35,11 +35,11 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/podcast_thumbnail"
+            app:layout_constraintTop_toBottomOf="@id/podcast_icon_thumbnail"
             tools:text="Dan Snow's HISTORY HIT" />
 
         <TextView
-            android:id="@+id/podcast_publisher_tv"
+            android:id="@+id/podcast_icon_publisher_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -49,7 +49,7 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/podcast_title_tv"
+            app:layout_constraintTop_toBottomOf="@id/podcast_icon_title_tv"
             tools:text="History Hit Network" />
 
     </android.support.constraint.ConstraintLayout>

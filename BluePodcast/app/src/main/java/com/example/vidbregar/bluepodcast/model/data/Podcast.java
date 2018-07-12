@@ -7,19 +7,19 @@ import com.google.gson.annotations.SerializedName;
 public class Podcast {
 
     @SerializedName("id")
-    public String id;
+    private String id;
     @SerializedName("thumbnail")
-    public String thumbnailUrl;
+    private String thumbnailUrl;
     @SerializedName("episodes")
-    public List<Episode> episodes;
+    private List<Episode> episodes;
     @SerializedName("website")
-    public String website;
+    private String website;
     @SerializedName("publisher")
-    public String publisher;
+    private String publisher;
     @SerializedName("title")
-    public String title;
+    private String title;
     @SerializedName("description")
-    public String description;
+    private String description;
 
     public Podcast(String id, String thumbnailUrl, List<Episode> episodes, String website,
                    String publisher, String title, String description) {

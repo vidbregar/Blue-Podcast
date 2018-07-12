@@ -24,10 +24,23 @@ public class HomeFragment extends Fragment {
 
     private Context context;
     private PodcastViewModel podcastViewModel;
-    private PodcastAdapter bestPodcastsAdapter;
 
+    // Best podcasts
     @BindView(R.id.best_podcasts_rv)
     RecyclerView bestPodcastsRecyclerView;
+    private BestPodcastsAdapter bestPodcastsAdapter;
+    // Comedy podcasts
+    @BindView(R.id.comedy_podcasts_rv)
+    RecyclerView comedyPodcastsRecyclerView;
+    private GenrePodcastsAdapter comedyPodcastsAdapter;
+    // Business podcasts
+    @BindView(R.id.business_podcasts_rv)
+    RecyclerView businessPodcastsRecyclerView;
+    private GenrePodcastsAdapter businessPodcastsAdapter;
+    // Health podcasts
+    @BindView(R.id.health_podcasts_rv)
+    RecyclerView healthPodcastsRecyclerView;
+    private GenrePodcastsAdapter healthPodcastsAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +58,9 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, root);
 
         loadBestPodcasts();
+        loadComedyPodcasts();
+        loadBusinessPodcasts();
+        loadHealthPodcasts();
         return root;
     }
 
@@ -52,9 +68,42 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         bestPodcastsRecyclerView.setLayoutManager(linearLayoutManager);
-        bestPodcastsAdapter = new PodcastAdapter();
+        bestPodcastsAdapter = new BestPodcastsAdapter();
         bestPodcastsRecyclerView.setAdapter(bestPodcastsAdapter);
         podcastViewModel.getBestPodcastsLiveData().observe(this,
                 podcasts -> bestPodcastsAdapter.swapPodcasts(podcasts));
+    }
+
+    private void loadComedyPodcasts() {
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(context);
+        comedyPodcastsRecyclerView.setNestedScrollingEnabled(false);
+        comedyPodcastsRecyclerView.setLayoutManager(linearLayoutManager);
+        comedyPodcastsAdapter = new GenrePodcastsAdapter();
+        comedyPodcastsRecyclerView.setAdapter(comedyPodcastsAdapter);
+        podcastViewModel.getComedyPodcastsLiveData().observe(this,
+                podcasts -> comedyPodcastsAdapter.swapPodcasts(podcasts));
+    }
+
+    private void loadBusinessPodcasts() {
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(context);
+        businessPodcastsRecyclerView.setNestedScrollingEnabled(false);
+        businessPodcastsRecyclerView.setLayoutManager(linearLayoutManager);
+        businessPodcastsAdapter = new GenrePodcastsAdapter();
+        businessPodcastsRecyclerView.setAdapter(businessPodcastsAdapter);
+        podcastViewModel.getBusinessPodcastsLiveData().observe(this,
+                podcasts -> businessPodcastsAdapter.swapPodcasts(podcasts));
+    }
+
+    private void loadHealthPodcasts() {
+        LinearLayoutManager linearLayoutManager =
+                new LinearLayoutManager(context);
+        healthPodcastsRecyclerView.setNestedScrollingEnabled(false);
+        healthPodcastsRecyclerView.setLayoutManager(linearLayoutManager);
+        healthPodcastsAdapter = new GenrePodcastsAdapter();
+        healthPodcastsRecyclerView.setAdapter(healthPodcastsAdapter);
+        podcastViewModel.getHealthPodcastsLiveData().observe(this,
+                podcasts -> healthPodcastsAdapter.swapPodcasts(podcasts));
     }
 }

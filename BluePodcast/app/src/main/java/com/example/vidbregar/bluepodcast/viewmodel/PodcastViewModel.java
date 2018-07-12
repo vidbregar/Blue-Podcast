@@ -17,8 +17,15 @@ import retrofit2.Response;
 
 public class PodcastViewModel extends ViewModel {
 
+    private static final int COMEDY_GENRE_ID = 133;
+    private static final int BUSINESS_GENRE_ID = 93;
+    private static final int HEALTH_GENRE_ID = 88;
+
     private PodcastService podcastService;
     private MutableLiveData<List<Channel>> bestPodcastsLiveData;
+    private MutableLiveData<List<Channel>> comedyPodcastsLiveData;
+    private MutableLiveData<List<Channel>> businessPodcastsLiveData;
+    private MutableLiveData<List<Channel>> healthPodcastsLiveData;
 
     public PodcastViewModel(PodcastService podcastService) {
         this.podcastService = podcastService;
@@ -32,14 +39,92 @@ public class PodcastViewModel extends ViewModel {
         return bestPodcastsLiveData;
     }
 
+    public MutableLiveData<List<Channel>> getComedyPodcastsLiveData() {
+        if (comedyPodcastsLiveData == null) {
+            comedyPodcastsLiveData = new MutableLiveData<>();
+            getComedyPodcasts();
+        }
+        return comedyPodcastsLiveData;
+    }
+
+    public MutableLiveData<List<Channel>> getBusinessPodcastsLiveData() {
+        if (businessPodcastsLiveData == null) {
+            businessPodcastsLiveData = new MutableLiveData<>();
+            getBusinessPodcasts();
+        }
+        return businessPodcastsLiveData;
+    }
+
+    public MutableLiveData<List<Channel>> getHealthPodcastsLiveData() {
+        if (healthPodcastsLiveData == null) {
+            healthPodcastsLiveData = new MutableLiveData<>();
+            getHealthPodcasts();
+        }
+        return healthPodcastsLiveData;
+    }
+
     private void getBestPodcasts() {
         Call<PodcastGenre> bestPodcastsCall = podcastService.getBestPodcasts(BuildConfig.API_KEY);
         bestPodcastsCall.enqueue(new Callback<PodcastGenre>() {
             @Override
             public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {
                 if (response.isSuccessful()) {
-                    Log.e("SUCCESS", response.body().name);
-                    bestPodcastsLiveData.setValue(response.body().channels);
+                    Log.e("SUCCESS", response.body().getName());
+                    bestPodcastsLiveData.setValue(response.body().getChannels());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PodcastGenre> call, Throwable t) {
+                Log.e("ERROR", t.getMessage());
+            }
+        });
+    }
+
+    private void getComedyPodcasts() {
+        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(BuildConfig.API_KEY, COMEDY_GENRE_ID);
+        comedyPodcastsCall.enqueue(new Callback<PodcastGenre>() {
+            @Override
+            public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {
+                if (response.isSuccessful()) {
+                    Log.e("SUCCESS", response.body().getName());
+                    comedyPodcastsLiveData.setValue(response.body().getChannels());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PodcastGenre> call, Throwable t) {
+                Log.e("ERROR", t.getMessage());
+            }
+        });
+    }
+
+    private void getBusinessPodcasts() {
+        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(BuildConfig.API_KEY, BUSINESS_GENRE_ID);
+        comedyPodcastsCall.enqueue(new Callback<PodcastGenre>() {
+            @Override
+            public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {
+                if (response.isSuccessful()) {
+                    Log.e("SUCCESS", response.body().getName());
+                    businessPodcastsLiveData.setValue(response.body().getChannels());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PodcastGenre> call, Throwable t) {
+                Log.e("ERROR", t.getMessage());
+            }
+        });
+    }
+
+    private void getHealthPodcasts() {
+        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(BuildConfig.API_KEY, HEALTH_GENRE_ID);
+        comedyPodcastsCall.enqueue(new Callback<PodcastGenre>() {
+            @Override
+            public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {
+                if (response.isSuccessful()) {
+                    Log.e("SUCCESS", response.body().getName());
+                    healthPodcastsLiveData.setValue(response.body().getChannels());
                 }
             }
 

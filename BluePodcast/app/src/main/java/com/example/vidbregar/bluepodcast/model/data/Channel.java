@@ -5,19 +5,19 @@ import com.google.gson.annotations.SerializedName;
 public class Channel {
 
     @SerializedName("id")
-    public String id;
+    private String id;
     @SerializedName("thumbnail")
-    public String thumbnailUrl;
+    private String thumbnailUrl;
     @SerializedName("lastest_pub_date_ms")
-    public String lastestPubDateMs;
+    private String lastestPubDateMs;
     @SerializedName("website")
-    public String website;
+    private String website;
     @SerializedName("publisher")
-    public String publisher;
+    private String publisher;
     @SerializedName("title")
-    public String title;
+    private String title;
     @SerializedName("description")
-    public String description;
+    private String description;
 
     public Channel(String id, String thumbnailUrl, String lastestPubDateMs, String website,
                    String publisher, String title, String description) {

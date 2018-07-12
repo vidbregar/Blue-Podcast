@@ -4,4 +4,7 @@
     <string name="nav_bar_menu_search">Search</string>
     <string name="nav_bar_menu_favorites">Favorites</string>
     <string name="best_podcasts_label">Best podcasts</string>
+    <string name="comedy_podcasts_label">Comedy</string>
+    <string name="business_podcasts_label">Business</string>
+    <string name="health_podcasts_label">Health</string>
 </resources>

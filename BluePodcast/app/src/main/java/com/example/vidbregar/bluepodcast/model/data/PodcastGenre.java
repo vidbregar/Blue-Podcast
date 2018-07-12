@@ -7,11 +7,11 @@ import com.google.gson.annotations.SerializedName;
 public class PodcastGenre {
 
     @SerializedName("name")
-    public String name;
+    private String name;
     @SerializedName("channels")
-    public List<Channel> channels;
+    private List<Channel> channels;
     @SerializedName("id")
-    public int id;
+    private int id;
 
     public PodcastGenre(String name, List<Channel> channels, int id) {
         this.name = name;

@@ -17,20 +17,20 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.ViewHolder> {
+public class GenrePodcastsAdapter extends RecyclerView.Adapter<GenrePodcastsAdapter.ViewHolder> {
 
-    List<Channel> podcasts;
+    private List<Channel> podcasts;
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GenrePodcastsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.podcast_list_item, parent, false);
+                .inflate(R.layout.podcast_row_list_item, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull GenrePodcastsAdapter.ViewHolder viewHolder, int position) {
         Channel podcast = podcasts.get(position);
         viewHolder.podcastTitleTextView.setText(podcast.getTitle());
         viewHolder.podcastPublisherTextView.setText(podcast.getPublisher());
@@ -51,11 +51,11 @@ public class PodcastAdapter extends RecyclerView.Adapter<PodcastAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.podcast_thumbnail)
+        @BindView(R.id.podcast_row_thumbnail)
         RoundedImageView podcastThumbnailImageView;
-        @BindView(R.id.podcast_title_tv)
+        @BindView(R.id.podcast_row_title_tv)
         TextView podcastTitleTextView;
-        @BindView(R.id.podcast_publisher_tv)
+        @BindView(R.id.podcast_row_publisher_tv)
         TextView podcastPublisherTextView;
 
         ViewHolder(@NonNull View itemView) {
