@@ -7,4 +7,5 @@
     <string name="comedy_podcasts_label">Comedy</string>
     <string name="business_podcasts_label">Business</string>
     <string name="health_podcasts_label">Health</string>
+    <string name="podcasts_loading_label">Loading...</string>
 </resources>

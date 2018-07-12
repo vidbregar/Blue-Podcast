@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.network.PodcastClient;
 import com.example.vidbregar.bluepodcast.model.network.PodcastService;
+import com.example.vidbregar.bluepodcast.ui.home.adapter.BestPodcastsAdapter;
+import com.example.vidbregar.bluepodcast.ui.home.adapter.GenrePodcastsAdapter;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModelFactory;
 
@@ -25,6 +28,9 @@ public class HomeFragment extends Fragment {
     private Context context;
     private PodcastViewModel podcastViewModel;
 
+    // Podcasts container
+    @BindView(R.id.podcasts_container)
+    ConstraintLayout podcastsContainer;
     // Best podcasts
     @BindView(R.id.best_podcasts_rv)
     RecyclerView bestPodcastsRecyclerView;
@@ -41,6 +47,9 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.health_podcasts_rv)
     RecyclerView healthPodcastsRecyclerView;
     private GenrePodcastsAdapter healthPodcastsAdapter;
+    // Loading indicator
+    @BindView(R.id.loading_container)
+    ConstraintLayout loadingIndicatorContainer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,7 +80,11 @@ public class HomeFragment extends Fragment {
         bestPodcastsAdapter = new BestPodcastsAdapter();
         bestPodcastsRecyclerView.setAdapter(bestPodcastsAdapter);
         podcastViewModel.getBestPodcastsLiveData().observe(this,
-                podcasts -> bestPodcastsAdapter.swapPodcasts(podcasts));
+                podcasts -> {
+                    bestPodcastsAdapter.swapPodcasts(podcasts);
+                    loadingIndicatorContainer.setVisibility(View.GONE);
+                    podcastsContainer.setVisibility(View.VISIBLE);
+                });
     }
 
     private void loadComedyPodcasts() {
