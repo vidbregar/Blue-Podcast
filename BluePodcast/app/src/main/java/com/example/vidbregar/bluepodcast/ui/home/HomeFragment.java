@@ -2,6 +2,8 @@ package com.example.vidbregar.bluepodcast.ui.home;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -133,6 +135,11 @@ public class HomeFragment extends Fragment implements PodcastClickListener {
         podcastTitleTextView.setText(podcast.getTitle());
         podcastPublisherTextView.setText(podcast.getPublisher());
         podcastDescriptionTextView.setText(Jsoup.parse(podcast.getDescription()).text());
+        podcastWebsiteButton.setOnClickListener(view -> {
+            Intent podcastWebsiteIntent = new Intent(Intent.ACTION_VIEW);
+            podcastWebsiteIntent.setData(Uri.parse(podcast.getWebsite()));
+            startActivity(podcastWebsiteIntent);
+        });
     }
 
     private void displayUpNavigation() {
