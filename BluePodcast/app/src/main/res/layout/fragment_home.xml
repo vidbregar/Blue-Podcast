@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -33,6 +35,95 @@
                 app:layout_constraintEnd_toEndOf="@id/podcasts_loading_indicator"
                 app:layout_constraintStart_toStartOf="@+id/podcasts_loading_indicator"
                 app:layout_constraintTop_toBottomOf="@id/podcasts_loading_indicator" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/podcast_detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/podcast_thumbnail"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="16dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius="8dp"
+                tools:src="@drawable/podcast_image" />
+
+            <TextView
+                android:id="@+id/podcast_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@android:color/black"
+                android:textSize="21sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/podcast_thumbnail"
+                app:layout_constraintTop_toTopOf="@id/podcast_thumbnail"
+                tools:text="Dan Snow's HISTORY HIT" />
+
+            <TextView
+                android:id="@+id/podcast_publisher"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/podcast_title"
+                app:layout_constraintTop_toBottomOf="@id/podcast_title"
+                tools:text="History Hit Network" />
+
+            <ImageButton
+                android:id="@+id/podcast_website"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="4dp"
+                android:src="@drawable/ic_link"
+                app:layout_constraintStart_toStartOf="@id/podcast_publisher"
+                app:layout_constraintTop_toBottomOf="@id/podcast_publisher" />
+
+            <TextView
+                android:id="@+id/podcast_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/podcast_thumbnail"
+                app:layout_constraintTop_toBottomOf="@id/podcast_thumbnail"
+                tools:text="History! The most exciting and important things that have ever happened on the planet! Featuring reports from the weird and wonderful places around the world where history has been made and interviews with some of the best historians writing today. Dan also covers some of the major anniversaries as they pass by and explores the deep history behind today's headlines - giving you the context to understand what is going on today. Join the conversation on twitter: @HistoryHit Producer: Natt Tapley “717090”" />
+
+            <TextView
+                android:id="@+id/podcast_episodes_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/episodes_label"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="@id/podcast_thumbnail"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/podcast_description" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/podcast_episodes_rv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/podcast_episodes_label" />
 
         </android.support.constraint.ConstraintLayout>
 

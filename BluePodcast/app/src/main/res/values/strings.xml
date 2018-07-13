@@ -8,4 +8,6 @@
     <string name="business_podcasts_label">Business</string>
     <string name="health_podcasts_label">Health</string>
     <string name="podcasts_loading_label">Loading...</string>
+    <string name="episodes_label">Episodes</string>
+    <string name="play_the_episode_content_description">Play the episode</string>
 </resources>

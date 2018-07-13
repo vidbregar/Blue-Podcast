@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
+import com.example.vidbregar.bluepodcast.ui.home.PodcastClickListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -20,6 +21,11 @@ import butterknife.ButterKnife;
 public class BestPodcastsAdapter extends RecyclerView.Adapter<BestPodcastsAdapter.ViewHolder> {
 
     private List<Channel> podcasts;
+    private PodcastClickListener podcastClickListener;
+
+    public BestPodcastsAdapter(PodcastClickListener podcastClickListener) {
+        this.podcastClickListener = podcastClickListener;
+    }
 
     @NonNull
     @Override
@@ -49,7 +55,7 @@ public class BestPodcastsAdapter extends RecyclerView.Adapter<BestPodcastsAdapte
         else return podcasts.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.podcast_icon_thumbnail)
         RoundedImageView podcastThumbnailImageView;
@@ -61,6 +67,12 @@ public class BestPodcastsAdapter extends RecyclerView.Adapter<BestPodcastsAdapte
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            podcastClickListener.onPodcastClickListener(podcasts.get(getAdapterPosition()));
         }
     }
 
