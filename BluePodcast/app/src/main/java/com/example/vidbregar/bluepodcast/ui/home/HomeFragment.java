@@ -23,9 +23,11 @@ import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
 import com.example.vidbregar.bluepodcast.model.network.PodcastClient;
 import com.example.vidbregar.bluepodcast.model.network.PodcastService;
+import com.example.vidbregar.bluepodcast.ui.MainActivity;
 import com.example.vidbregar.bluepodcast.ui.home.adapter.BestPodcastsAdapter;
 import com.example.vidbregar.bluepodcast.ui.home.adapter.EpisodesAdapter;
 import com.example.vidbregar.bluepodcast.ui.home.adapter.GenrePodcastsAdapter;
+import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModelFactory;
 import com.squareup.picasso.Picasso;
@@ -35,10 +37,12 @@ import org.jsoup.Jsoup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment implements PodcastClickListener {
+public class HomeFragment extends Fragment implements PodcastClickListener, MainActivity.OnBackPressedListener {
 
     private Context context;
     private PodcastViewModel podcastViewModel;
+    private PodcastService podcastService;
+    private SharedPreferencesUtil sharedPreferencesUtil;
 
     // Podcasts container
     @BindView(R.id.podcasts_container)
@@ -79,13 +83,15 @@ public class HomeFragment extends Fragment implements PodcastClickListener {
     RecyclerView podcastEpisodeRecyclerView;
     private EpisodesAdapter episodesAdapter;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PodcastService podcastService = new PodcastClient().getPodcastService();
-        PodcastViewModelFactory podcastViewModelFactory = new PodcastViewModelFactory(podcastService);
+        podcastService = new PodcastClient().getPodcastService();
+        sharedPreferencesUtil = new SharedPreferencesUtil(getActivity().getApplicationContext());
+        PodcastViewModelFactory podcastViewModelFactory = new PodcastViewModelFactory(podcastService, sharedPreferencesUtil);
         podcastViewModel = ViewModelProviders.of(getActivity(), podcastViewModelFactory).get(PodcastViewModel.class);
+        // Used for handling back button when podcast detail layout is displayed
+        ((MainActivity) getActivity()).setOnBackPressedListener(this);
     }
 
     @Override
@@ -109,7 +115,7 @@ public class HomeFragment extends Fragment implements PodcastClickListener {
     }
 
     private void restoreCorrectLayout() {
-        if (podcastViewModel.getIsOnPodcastLayout()) {
+        if (podcastViewModel.getIsOnPodcastDetailLayout()) {
             podcastsContainer.setVisibility(View.GONE);
             podcastDetailContainer.setVisibility(View.VISIBLE);
             loadPodcastData(podcastViewModel.getSelectedPodcast());
@@ -121,7 +127,7 @@ public class HomeFragment extends Fragment implements PodcastClickListener {
 
     @Override
     public void onPodcastClickListener(Channel podcast) {
-        podcastViewModel.setIsOnPodcastLayout(true);
+        podcastViewModel.setIsOnPodcastDetailLayout(true);
         podcastViewModel.getEpisodesFromApi(podcast.getId());
         podcastsContainer.setVisibility(View.GONE);
         podcastDetailContainer.setVisibility(View.VISIBLE);
@@ -152,16 +158,25 @@ public class HomeFragment extends Fragment implements PodcastClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                podcastDetailContainer.setVisibility(View.GONE);
-                podcastsContainer.setVisibility(View.VISIBLE);
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-                ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
-                podcastViewModel.setIsOnPodcastLayout(false);
-                podcastViewModel.setSelectedPodcast(null);
-                setHasOptionsMenu(false);
+                displayPodcastsList();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        displayPodcastsList();
+    }
+
+    private void displayPodcastsList() {
+        podcastDetailContainer.setVisibility(View.GONE);
+        podcastsContainer.setVisibility(View.VISIBLE);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
+        podcastViewModel.setIsOnPodcastDetailLayout(false);
+        podcastViewModel.setSelectedPodcast(null);
+        setHasOptionsMenu(false);
     }
 
     private void observeEpisodes() {
@@ -185,7 +200,7 @@ public class HomeFragment extends Fragment implements PodcastClickListener {
                 podcasts -> {
                     bestPodcastsAdapter.swapPodcasts(podcasts);
                     loadingIndicatorContainer.setVisibility(View.GONE);
-                    if (!podcastViewModel.getIsOnPodcastLayout()) {
+                    if (!podcastViewModel.getIsOnPodcastDetailLayout()) {
                         podcastsContainer.setVisibility(View.VISIBLE);
                     }
                 });

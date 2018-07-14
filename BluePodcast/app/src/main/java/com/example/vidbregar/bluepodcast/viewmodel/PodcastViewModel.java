@@ -10,6 +10,7 @@ import com.example.vidbregar.bluepodcast.model.data.Episode;
 import com.example.vidbregar.bluepodcast.model.data.Podcast;
 import com.example.vidbregar.bluepodcast.model.data.PodcastGenre;
 import com.example.vidbregar.bluepodcast.model.network.PodcastService;
+import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 
 import java.util.List;
 
@@ -34,10 +35,12 @@ public class PodcastViewModel extends ViewModel {
     // Episodes
     private MutableLiveData<List<Episode>> episodesLiveData;
     // Layout
-    private boolean isOnPodcastLayout;
+    private boolean isOnPodcastDetailLayout;
+    private SharedPreferencesUtil sharedPreferencesUtil;
 
-    public PodcastViewModel(PodcastService podcastService) {
+    public PodcastViewModel(PodcastService podcastService, SharedPreferencesUtil sharedPreferencesUtil) {
         this.podcastService = podcastService;
+        this.sharedPreferencesUtil = sharedPreferencesUtil;
     }
 
     public MutableLiveData<List<Channel>> getBestPodcastsLiveData() {
@@ -177,11 +180,12 @@ public class PodcastViewModel extends ViewModel {
         this.selectedPodcast = selectedPodcast;
     }
 
-    public boolean getIsOnPodcastLayout() {
-        return isOnPodcastLayout;
+    public boolean getIsOnPodcastDetailLayout() {
+        return isOnPodcastDetailLayout;
     }
 
-    public void setIsOnPodcastLayout(boolean isOnPodcastLayout) {
-        this.isOnPodcastLayout = isOnPodcastLayout;
+    public void setIsOnPodcastDetailLayout(boolean isOnPodcastDetailLayout) {
+        sharedPreferencesUtil.setIsOnPodcastDetailLayout(isOnPodcastDetailLayout);
+        this.isOnPodcastDetailLayout = isOnPodcastDetailLayout;
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.vidbregar.bluepodcast.R;
+import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,11 +16,19 @@ public class MainActivity extends AppCompatActivity {
 
     private ScreenSlidePagerAdapter screenSlidePagerAdapter;
     private MenuItem prevMenuItem;
+    private SharedPreferencesUtil sharedPreferencesUtil;
+    private OnBackPressedListener onBackPressedListener;
 
     @BindView(R.id.view_pager)
     NonSwipeableViewPager viewPager;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
+
+    public interface OnBackPressedListener {
+
+        void onBackPressed();
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setUpViewPager();
         setUpBottomNavigation();
+        this.sharedPreferencesUtil = new SharedPreferencesUtil(getApplicationContext());
     }
 
     private void setUpBottomNavigation() {
@@ -80,12 +90,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (viewPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
+            if (sharedPreferencesUtil.getIsOnPodcastDetailLayout()) {
+                // If the user is currently looking at the podcast detail layout,
+                // return back to podcasts list
+                onBackPressedListener.onBackPressed();
+            } else {
+                // If the user is currently looking at the first step, allow the system to handle the
+                // Back button. This calls finish() on this activity and pops the back stack.
+                super.onBackPressed();
+            }
         } else {
             // Otherwise, select the previous step.
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
         }
+    }
+
+    public void setOnBackPressedListener(OnBackPressedListener onBackPressedListener) {
+        this.onBackPressedListener = onBackPressedListener;
     }
 }
