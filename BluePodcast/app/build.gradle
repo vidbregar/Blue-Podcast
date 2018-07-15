@@ -33,6 +33,7 @@ static def getApiKey() {
 
 dependencies {
     final def ANDROID_SUPPORT_VERSION = "27.1.1"
+    final def EXOPLAYER_VERSION = "2.8.2"
     final def RETROFIT_VERSION = "2.4.0"
     final def OKHTTP3_VERSION = "3.10.0"
     final def LIFECYCLE_VERSION = "1.1.1"
@@ -44,6 +45,10 @@ dependencies {
     implementation "com.android.support.constraint:constraint-layout:1.1.2"
     implementation "com.android.support:design:$ANDROID_SUPPORT_VERSION"
     implementation "android.arch.lifecycle:extensions:$LIFECYCLE_VERSION"
+
+    // ExoPlayer
+    implementation "com.google.android.exoplayer:exoplayer-core:$EXOPLAYER_VERSION"
+    implementation "com.google.android.exoplayer:exoplayer-ui:$EXOPLAYER_VERSION"
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.5'
@@ -65,6 +70,9 @@ dependencies {
 
     // RoundedImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
+
+    // CircleImageView
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 
     // Jsoup
     implementation 'org.jsoup:jsoup:1.11.3'

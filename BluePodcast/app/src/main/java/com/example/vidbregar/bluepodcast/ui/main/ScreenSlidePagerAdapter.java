@@ -1,12 +1,12 @@
-package com.example.vidbregar.bluepodcast.ui;
+package com.example.vidbregar.bluepodcast.ui.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.example.vidbregar.bluepodcast.ui.favorites.FavoritesFragment;
-import com.example.vidbregar.bluepodcast.ui.home.HomeFragment;
-import com.example.vidbregar.bluepodcast.ui.search.SearchFragment;
+import com.example.vidbregar.bluepodcast.ui.main.favorites.FavoritesFragment;
+import com.example.vidbregar.bluepodcast.ui.main.home.HomeFragment;
+import com.example.vidbregar.bluepodcast.ui.main.search.SearchFragment;
 
 class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 

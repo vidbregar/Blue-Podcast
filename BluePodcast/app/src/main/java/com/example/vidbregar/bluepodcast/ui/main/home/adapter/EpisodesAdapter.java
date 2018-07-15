@@ -1,4 +1,4 @@
-package com.example.vidbregar.bluepodcast.ui.home.adapter;
+package com.example.vidbregar.bluepodcast.ui.main.home.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Episode;
+import com.example.vidbregar.bluepodcast.ui.main.home.listener.EpisodeClickListener;
 
 import java.util.List;
 
@@ -18,6 +19,11 @@ import butterknife.ButterKnife;
 public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.ViewHolder> {
 
     private List<Episode> episodes;
+    private EpisodeClickListener episodeClickListener;
+
+    public EpisodesAdapter(EpisodeClickListener episodeClickListener) {
+        this.episodeClickListener = episodeClickListener;
+    }
 
     @NonNull
     @Override
@@ -45,16 +51,22 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.ViewHo
         else return episodes.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.episode_title)
+        @BindView(R.id.podcast_episode_title)
         TextView episodeTitleTextView;
-        @BindView(R.id.episode_duration)
+        @BindView(R.id.podcast_episode_duration)
         TextView episodeDurationTextView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            episodeClickListener.onEpisodeClickListener(episodes.get(getAdapterPosition()));
         }
     }
 

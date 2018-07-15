@@ -1,4 +1,4 @@
-package com.example.vidbregar.bluepodcast.ui.home.adapter;
+package com.example.vidbregar.bluepodcast.ui.main.home.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
-import com.example.vidbregar.bluepodcast.ui.home.PodcastClickListener;
+import com.example.vidbregar.bluepodcast.ui.main.home.listener.PodcastClickListener;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -18,25 +18,25 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GenrePodcastsAdapter extends RecyclerView.Adapter<GenrePodcastsAdapter.ViewHolder> {
+public class BestPodcastsAdapter extends RecyclerView.Adapter<BestPodcastsAdapter.ViewHolder> {
 
     private List<Channel> podcasts;
     private PodcastClickListener podcastClickListener;
 
-    public GenrePodcastsAdapter(PodcastClickListener podcastClickListener) {
+    public BestPodcastsAdapter(PodcastClickListener podcastClickListener) {
         this.podcastClickListener = podcastClickListener;
     }
 
     @NonNull
     @Override
-    public GenrePodcastsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.podcast_row_list_item, parent, false);
+                .inflate(R.layout.podcast_icon_list_item, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GenrePodcastsAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         Channel podcast = podcasts.get(position);
         viewHolder.podcastTitleTextView.setText(podcast.getTitle());
         viewHolder.podcastPublisherTextView.setText(podcast.getPublisher());
@@ -57,11 +57,11 @@ public class GenrePodcastsAdapter extends RecyclerView.Adapter<GenrePodcastsAdap
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.podcast_row_thumbnail)
+        @BindView(R.id.podcast_icon_thumbnail)
         RoundedImageView podcastThumbnailImageView;
-        @BindView(R.id.podcast_row_title_tv)
+        @BindView(R.id.podcast_icon_title_tv)
         TextView podcastTitleTextView;
-        @BindView(R.id.podcast_row_publisher_tv)
+        @BindView(R.id.podcast_icon_publisher_tv)
         TextView podcastPublisherTextView;
 
         ViewHolder(@NonNull View itemView) {

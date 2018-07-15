@@ -1,4 +1,4 @@
-package com.example.vidbregar.bluepodcast.ui.home;
+package com.example.vidbregar.bluepodcast.ui.main.home;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -21,12 +21,15 @@ import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
+import com.example.vidbregar.bluepodcast.model.data.Episode;
 import com.example.vidbregar.bluepodcast.model.network.PodcastClient;
 import com.example.vidbregar.bluepodcast.model.network.PodcastService;
-import com.example.vidbregar.bluepodcast.ui.MainActivity;
-import com.example.vidbregar.bluepodcast.ui.home.adapter.BestPodcastsAdapter;
-import com.example.vidbregar.bluepodcast.ui.home.adapter.EpisodesAdapter;
-import com.example.vidbregar.bluepodcast.ui.home.adapter.GenrePodcastsAdapter;
+import com.example.vidbregar.bluepodcast.ui.main.MainActivity;
+import com.example.vidbregar.bluepodcast.ui.main.home.adapter.BestPodcastsAdapter;
+import com.example.vidbregar.bluepodcast.ui.main.home.adapter.EpisodesAdapter;
+import com.example.vidbregar.bluepodcast.ui.main.home.adapter.GenrePodcastsAdapter;
+import com.example.vidbregar.bluepodcast.ui.main.home.listener.EpisodeClickListener;
+import com.example.vidbregar.bluepodcast.ui.main.home.listener.PodcastClickListener;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModelFactory;
@@ -37,7 +40,9 @@ import org.jsoup.Jsoup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment implements PodcastClickListener, MainActivity.OnBackPressedListener {
+public class HomeFragment extends Fragment implements PodcastClickListener,
+        EpisodeClickListener,
+        MainActivity.OnBackPressedListener {
 
     private Context context;
     private PodcastViewModel podcastViewModel;
@@ -136,6 +141,11 @@ public class HomeFragment extends Fragment implements PodcastClickListener, Main
         displayUpNavigation();
     }
 
+    @Override
+    public void onEpisodeClickListener(Episode episode) {
+
+    }
+
     private void loadPodcastData(Channel podcast) {
         Picasso.get().load(podcast.getThumbnailUrl()).into(podcastThumbnailImageView);
         podcastTitleTextView.setText(podcast.getTitle());
@@ -184,7 +194,7 @@ public class HomeFragment extends Fragment implements PodcastClickListener, Main
                 new LinearLayoutManager(context);
         podcastEpisodeRecyclerView.setNestedScrollingEnabled(false);
         podcastEpisodeRecyclerView.setLayoutManager(linearLayoutManager);
-        episodesAdapter = new EpisodesAdapter();
+        episodesAdapter = new EpisodesAdapter(this);
         podcastEpisodeRecyclerView.setAdapter(episodesAdapter);
         podcastViewModel.getEpisodesLiveData().observe(this,
                 episodes -> episodesAdapter.swapEpisodes(episodes));

@@ -1,4 +1,4 @@
-package com.example.vidbregar.bluepodcast.ui;
+package com.example.vidbregar.bluepodcast.ui.main;
 
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;

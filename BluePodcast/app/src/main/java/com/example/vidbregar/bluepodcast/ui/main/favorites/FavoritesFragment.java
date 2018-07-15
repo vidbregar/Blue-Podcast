@@ -1,4 +1,4 @@
-package com.example.vidbregar.bluepodcast.ui.search;
+package com.example.vidbregar.bluepodcast.ui.main.favorites;
 
 
 import android.os.Bundle;
@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 
 import com.example.vidbregar.bluepodcast.R;
 
-public class SearchFragment extends Fragment {
+public class FavoritesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        return inflater.inflate(R.layout.fragment_favorites, container, false);
     }
 }
