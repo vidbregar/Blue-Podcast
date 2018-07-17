@@ -23,7 +23,7 @@ public class PodcastViewModel extends ViewModel {
     private static final int COMEDY_GENRE_ID = 133;
     private static final int BUSINESS_GENRE_ID = 93;
     private static final int HEALTH_GENRE_ID = 88;
-    private static final String API_KEY = "BuildConfig.API_KEY";
+    private static final String API_KEY = BuildConfig.API_KEY;
 
     private PodcastService podcastService;
     // Podcasts
