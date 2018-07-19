@@ -12,6 +12,7 @@ import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
 
+import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -42,6 +43,7 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
     private NotificationUtil notificationUtil;
     private MediaSessionCompat mediaSession;
     private MediaControllerCompat.TransportControls transportControls;
+    private SharedPreferencesUtil sharedPreferencesUtil;
     private final IBinder playerBinder = new PlayerBinder();
 
     public class PlayerBinder extends Binder {
@@ -84,6 +86,8 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
                 | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
         mediaSession.setCallback(mediaSessionCallback);
 
+        sharedPreferencesUtil = new SharedPreferencesUtil(getApplicationContext());
+
         RenderersFactory renderersFactory = new DefaultRenderersFactory(getApplicationContext());
         DefaultBandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
@@ -119,6 +123,11 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (intent == null) {
+            // Service has been was destroyed -> null intent is returned
+            return START_STICKY;
+        }
+
         String action = intent.getAction();
 
         if (TextUtils.isEmpty(action))
@@ -143,7 +152,12 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
             }
 
         } else if (action.equalsIgnoreCase(ACTION_STOP)) {
-            pause();
+            if (sharedPreferencesUtil.getIsApplicationAlive()) {
+                pause();
+            } else {
+                stopForeground(true);
+                stopSelf();
+            }
             notificationUtil.cancelNotification();
         }
 

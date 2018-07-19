@@ -11,6 +11,7 @@ import android.os.Bundle;
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
 import com.example.vidbregar.bluepodcast.model.data.Episode;
+import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.google.android.exoplayer2.ui.PlayerControlView;
 
 import butterknife.BindView;
@@ -21,7 +22,8 @@ public class PlayerActivity extends AppCompatActivity {
     private Channel podcast;
     private Episode episode;
     private PlayerService playerService;
-    boolean isBound;
+    private SharedPreferencesUtil sharedPreferencesUtil;
+    private boolean isBound;
 
     @BindView(R.id.player_view)
     PlayerControlView playerControlView;
@@ -31,8 +33,9 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
         ButterKnife.bind(this);
+        sharedPreferencesUtil = new SharedPreferencesUtil(getApplicationContext());
+        sharedPreferencesUtil.setIsApplicationAlive(true);
         setUpMocks();
-
     }
 
     @Override
@@ -51,6 +54,12 @@ public class PlayerActivity extends AppCompatActivity {
             playerService.playOrPause(episode.getAudioUrl());
             playerControlView.setPlayer(playerService.simpleExoPlayer);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharedPreferencesUtil.setIsApplicationAlive(false);
     }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {
