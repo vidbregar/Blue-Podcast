@@ -155,7 +155,7 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
             notificationUtil.cancelNotification();
         }
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     @Nullable

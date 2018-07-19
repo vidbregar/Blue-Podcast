@@ -38,6 +38,11 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        // Using startService() overrides the default service lifetime that is managed
+        // by bindService(Intent, ServiceConnection, int): it requires the service to remain
+        // running until stopService(Intent) is called, regardless of whether any clients
+        // are connected to it.
+        startService(new Intent(this, PlayerService.class));
         bindService(new Intent(this, PlayerService.class), serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
@@ -46,13 +51,6 @@ public class PlayerActivity extends AppCompatActivity {
             playerService.playOrPause(episode.getAudioUrl());
             playerControlView.setPlayer(playerService.simpleExoPlayer);
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        unbindService(serviceConnection);
-        isBound = false;
     }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {
