@@ -7,15 +7,18 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
 import com.example.vidbregar.bluepodcast.model.data.Episode;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PlayerActivity extends AppCompatActivity {
 
@@ -27,6 +30,12 @@ public class PlayerActivity extends AppCompatActivity {
 
     @BindView(R.id.player_view)
     PlayerControlView playerControlView;
+    @BindView(R.id.episode_thumbnail)
+    CircleImageView episodeThumbnail;
+    @BindView(R.id.episode_title)
+    TextView episodeTitle;
+    @BindView(R.id.episode_publisher)
+    TextView episodePublisher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,13 @@ public class PlayerActivity extends AppCompatActivity {
         sharedPreferencesUtil = new SharedPreferencesUtil(getApplicationContext());
         sharedPreferencesUtil.setIsApplicationAlive(true);
         setUpMocks();
+        bindViews();
+    }
+
+    private void bindViews() {
+        Picasso.get().load(podcast.getThumbnailUrl()).into(episodeThumbnail);
+        episodeTitle.setText(episode.getTitle());
+        episodePublisher.setText(podcast.getPublisher());
     }
 
     @Override
