@@ -143,7 +143,7 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
             }
 
         } else if (action.equalsIgnoreCase(ACTION_STOP)) {
-            transportControls.stop();
+            pause();
             notificationUtil.cancelNotification();
         }
 

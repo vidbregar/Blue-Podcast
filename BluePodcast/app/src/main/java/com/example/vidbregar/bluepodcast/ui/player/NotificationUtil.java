@@ -36,10 +36,10 @@ public class NotificationUtil {
         PendingIntent playPauseAction;
 
         if (playerStatus.equals(PAUSED)) {
-            playPauseAction = createAction(ACTION_PAUSE, REQUEST_CODE_PAUSE);
+            playPauseAction = createAction(ACTION_PLAY, REQUEST_CODE_PLAY);
             playPauseIcon = R.drawable.ic_notification_play;
         } else {
-            playPauseAction = createAction(ACTION_PLAY, REQUEST_CODE_PLAY);
+            playPauseAction = createAction(ACTION_PAUSE, REQUEST_CODE_PAUSE);
             playPauseIcon = R.drawable.ic_notification_pause;
         }
 
