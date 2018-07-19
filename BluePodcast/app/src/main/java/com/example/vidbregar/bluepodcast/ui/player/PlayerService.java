@@ -31,17 +31,9 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import static com.example.vidbregar.bluepodcast.ui.player.PlayerConstants.*;
+
 public class PlayerService extends Service implements AudioManager.OnAudioFocusChangeListener, Player.EventListener {
-
-    public static final String ACTION_PLAY = "action-play";
-    public static final String ACTION_PAUSE = "action-pause";
-    public static final String ACTION_STOP = "action-stop";
-
-    private static final String IDLE = "player-idle";
-    private static final String STOPPED = "player-stopped";
-    private static final String PLAYING = "player-playing";
-    private static final String LOADING = "player-loading";
-    private static final String PAUSED = "player-paused";
 
     public SimpleExoPlayer simpleExoPlayer;
     private String audioUrl;
@@ -216,7 +208,7 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
         }
 
         if (!playerStatus.equals(IDLE))
-            notificationUtil.startNotification();
+            notificationUtil.startNotification(playerStatus);
     }
 
     public String getPlayerStatus() {
