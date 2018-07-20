@@ -8,6 +8,7 @@ public class SharedPreferencesUtil {
 
     private static final String IS_ON_PODCAST_DETAIL_LAYOUT = "is-on-podcast-detail-layout";
     private static final String IS_APPLICATION_ALIVE = "is-application-alive";
+    private static final String IS_MAIN_ACTIVITY_ALIVE = "is-main-activity-alive";
     private SharedPreferences sharedPreferences;
 
     public SharedPreferencesUtil(Context applicationContext) {
@@ -20,7 +21,7 @@ public class SharedPreferencesUtil {
                 .apply();
     }
 
-    public boolean getIsOnPodcastDetailLayout() {
+    public boolean isOnPodcastDetailLayout() {
         return sharedPreferences.getBoolean(IS_ON_PODCAST_DETAIL_LAYOUT, false);
     }
 
@@ -30,7 +31,17 @@ public class SharedPreferencesUtil {
                 .apply();
     }
 
-    public boolean getIsApplicationAlive() {
+    public boolean isApplicationAlive() {
         return sharedPreferences.getBoolean(IS_APPLICATION_ALIVE, false);
+    }
+
+    public void setIsMainActivityAlive(boolean isMainActivityAlive) {
+        sharedPreferences.edit()
+                .putBoolean(IS_MAIN_ACTIVITY_ALIVE, isMainActivityAlive)
+                .apply();
+    }
+
+    public boolean isMainActivityAlive() {
+        return sharedPreferences.getBoolean(IS_MAIN_ACTIVITY_ALIVE, false);
     }
 }

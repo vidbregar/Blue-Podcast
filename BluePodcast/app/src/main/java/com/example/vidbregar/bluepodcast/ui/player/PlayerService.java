@@ -152,7 +152,7 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
             }
 
         } else if (action.equalsIgnoreCase(ACTION_STOP)) {
-            if (sharedPreferencesUtil.getIsApplicationAlive()) {
+            if (sharedPreferencesUtil.isApplicationAlive()) {
                 pause();
             } else {
                 stopForeground(true);

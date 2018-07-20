@@ -8,11 +8,13 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.database.EpisodeDatabase;
 import com.example.vidbregar.bluepodcast.model.database.EpisodeEntity;
+import com.example.vidbregar.bluepodcast.ui.main.MainActivity;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModelFactory;
@@ -94,6 +96,24 @@ public class PlayerActivity extends AppCompatActivity {
         Picasso.get().load(episodeEntity.getThumbnailUrl()).into(episodeThumbnail);
         episodeTitle.setText(episodeEntity.getEpisodeTitle());
         episodePublisher.setText(episodeEntity.getPublisher());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (sharedPreferencesUtil.isMainActivityAlive()) {
+                    // MainActivity is alive -> return to it
+                    finish();
+                } else {
+                    // Launch MainActivity
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         setUpViewPager();
         setUpBottomNavigation();
         this.sharedPreferencesUtil = new SharedPreferencesUtil(getApplicationContext());
+        sharedPreferencesUtil.setIsMainActivityAlive(true);
     }
 
     private void setUpBottomNavigation() {
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (viewPager.getCurrentItem() == 0) {
-            if (sharedPreferencesUtil.getIsOnPodcastDetailLayout()) {
+            if (sharedPreferencesUtil.isOnPodcastDetailLayout()) {
                 // If the user is currently looking at the podcast detail layout,
                 // return back to podcasts list
                 onBackPressedListener.onBackPressed();
@@ -107,5 +108,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setOnBackPressedListener(OnBackPressedListener onBackPressedListener) {
         this.onBackPressedListener = onBackPressedListener;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sharedPreferencesUtil.setIsMainActivityAlive(false);
     }
 }
