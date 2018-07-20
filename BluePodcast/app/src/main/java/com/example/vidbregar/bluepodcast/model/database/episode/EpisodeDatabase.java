@@ -35,10 +35,10 @@ public abstract class EpisodeDatabase extends RoomDatabase {
                         Executors.newSingleThreadScheduledExecutor().execute(() -> {
                             getInstance(context).episodeDao()
                                     .insertEpisode(new EpisodeEntity(1,
-                                            null,
-                                            null,
-                                            null,
-                                            null));
+                                            "",
+                                            "",
+                                            "",
+                                            ""));
                         });
                     }
                 })

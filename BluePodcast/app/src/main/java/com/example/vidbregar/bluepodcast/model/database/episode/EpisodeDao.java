@@ -3,8 +3,6 @@ package com.example.vidbregar.bluepodcast.model.database.episode;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.Update;
-
 
 @Dao
 public interface EpisodeDao {
@@ -17,7 +15,10 @@ public interface EpisodeDao {
     @Query("SELECT * FROM episode_table")
     EpisodeEntity getEpisode();
 
-    @Update
-    void updateEpisode(EpisodeEntity episodeEntity);
+    @Query("UPDATE episode_table SET thumbnail_url = :thumbnailUrl, episode_title = :episodeTitle, publisher = :publisher, audio_url = :audioUrl WHERE id = 1")
+    void updateEpisode(String thumbnailUrl,
+                       String episodeTitle,
+                       String publisher,
+                       String audioUrl);
 
 }

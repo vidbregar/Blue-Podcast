@@ -22,14 +22,12 @@ public class PlayerViewModel extends ViewModel {
 
     public void putEpisode(Channel podcast, Episode episode) {
         AsyncTask.execute(() -> {
-            EpisodeEntity episodeEntity = new EpisodeEntity(1,
-                    podcast.getThumbnailUrl(),
+            episodeDatabase.episodeDao().updateEpisode(podcast.getThumbnailUrl(),
                     episode.getTitle(),
                     podcast.getPublisher(),
                     episode.getAudioUrl());
-
-            episodeDatabase.episodeDao().updateEpisode(episodeEntity);
-            episodeEntityLiveData.postValue(episodeDatabase.episodeDao().getEpisode());
+            EpisodeEntity episodeEntity = episodeDatabase.episodeDao().getEpisode();
+            episodeEntityLiveData.postValue(episodeEntity);
         });
     }
 
