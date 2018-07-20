@@ -12,8 +12,8 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
-import com.example.vidbregar.bluepodcast.model.database.EpisodeDatabase;
-import com.example.vidbregar.bluepodcast.model.database.EpisodeEntity;
+import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeDatabase;
+import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeEntity;
 import com.example.vidbregar.bluepodcast.ui.main.MainActivity;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModel;

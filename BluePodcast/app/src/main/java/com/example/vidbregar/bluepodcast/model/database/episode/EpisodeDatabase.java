@@ -1,4 +1,4 @@
-package com.example.vidbregar.bluepodcast.model.database;
+package com.example.vidbregar.bluepodcast.model.database.episode;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;

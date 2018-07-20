@@ -1,14 +1,13 @@
-package com.example.vidbregar.bluepodcast.model.database;
+package com.example.vidbregar.bluepodcast.model.database.favorites;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
-@Entity(tableName = "episode_table")
-public class EpisodeEntity {
+@Entity(tableName = "favorites_table")
+public class FavoriteEntity {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name = "thumbnail_url")
@@ -23,8 +22,7 @@ public class EpisodeEntity {
     @ColumnInfo(name = "audio_url")
     private String audioUrl;
 
-    public EpisodeEntity(int id, String thumbnailUrl, String episodeTitle, String publisher, String audioUrl) {
-        this.id = id;
+    public FavoriteEntity(String thumbnailUrl, String episodeTitle, String publisher, String audioUrl) {
         this.thumbnailUrl = thumbnailUrl;
         this.episodeTitle = episodeTitle;
         this.publisher = publisher;

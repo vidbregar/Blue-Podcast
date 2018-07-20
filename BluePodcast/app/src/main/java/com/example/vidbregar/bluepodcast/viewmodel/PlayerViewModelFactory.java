@@ -2,7 +2,8 @@ package com.example.vidbregar.bluepodcast.viewmodel;
 
 import android.arch.lifecycle.ViewModelProvider;
 
-import com.example.vidbregar.bluepodcast.model.database.EpisodeDatabase;
+import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeDatabase;
+
 
 public class PlayerViewModelFactory implements ViewModelProvider.Factory {
 

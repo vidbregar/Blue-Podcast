@@ -7,8 +7,8 @@ import android.os.AsyncTask;
 
 import com.example.vidbregar.bluepodcast.model.data.Channel;
 import com.example.vidbregar.bluepodcast.model.data.Episode;
-import com.example.vidbregar.bluepodcast.model.database.EpisodeDatabase;
-import com.example.vidbregar.bluepodcast.model.database.EpisodeEntity;
+import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeDatabase;
+import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeEntity;
 
 public class PlayerViewModel extends ViewModel {
 
