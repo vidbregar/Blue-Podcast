@@ -30,6 +30,7 @@ import com.example.vidbregar.bluepodcast.ui.main.home.adapter.EpisodesAdapter;
 import com.example.vidbregar.bluepodcast.ui.main.home.adapter.GenrePodcastsAdapter;
 import com.example.vidbregar.bluepodcast.ui.main.home.listener.EpisodeClickListener;
 import com.example.vidbregar.bluepodcast.ui.main.home.listener.PodcastClickListener;
+import com.example.vidbregar.bluepodcast.ui.player.PlayerActivity;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModelFactory;
@@ -143,7 +144,10 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
 
     @Override
     public void onEpisodeClickListener(Episode episode) {
-
+        Intent playerActivityIntent = new Intent(getActivity(), PlayerActivity.class);
+        playerActivityIntent.putExtra(PlayerActivity.INTENT_EXTRA_PODCAST, podcastViewModel.getSelectedPodcast());
+        playerActivityIntent.putExtra(PlayerActivity.INTENT_EXTRA_EPISODE, episode);
+        startActivity(playerActivityIntent);
     }
 
     private void loadPodcastData(Channel podcast) {

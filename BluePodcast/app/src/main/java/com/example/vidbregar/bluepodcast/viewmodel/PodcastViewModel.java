@@ -23,7 +23,7 @@ public class PodcastViewModel extends ViewModel {
     private static final int COMEDY_GENRE_ID = 133;
     private static final int BUSINESS_GENRE_ID = 93;
     private static final int HEALTH_GENRE_ID = 88;
-    private static final String API_KEY = BuildConfig.API_KEY;
+    private static final String API_KEY = "BuildConfig.API_KEY";
 
     private PodcastService podcastService;
     // Podcasts
@@ -83,7 +83,7 @@ public class PodcastViewModel extends ViewModel {
     }
 
     public void getEpisodesFromApi(String podcastId) {
-        Call<Podcast> podcastCall = podcastService.getPodcast(API_KEY, podcastId);
+        Call<Podcast> podcastCall = podcastService.getPodcast(BuildConfig.API_KEY, podcastId);
         podcastCall.enqueue(new Callback<Podcast>() {
             @Override
             public void onResponse(Call<Podcast> call, Response<Podcast> response) {
@@ -101,7 +101,7 @@ public class PodcastViewModel extends ViewModel {
     }
 
     private void getBestPodcasts() {
-        Call<PodcastGenre> bestPodcastsCall = podcastService.getBestPodcasts(API_KEY);
+        Call<PodcastGenre> bestPodcastsCall = podcastService.getBestPodcasts(BuildConfig.API_KEY);
         bestPodcastsCall.enqueue(new Callback<PodcastGenre>() {
             @Override
             public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {

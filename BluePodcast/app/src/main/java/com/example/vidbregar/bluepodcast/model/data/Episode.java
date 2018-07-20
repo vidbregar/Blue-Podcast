@@ -1,8 +1,11 @@
 package com.example.vidbregar.bluepodcast.model.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Episode {
+public class Episode implements Parcelable {
 
     @SerializedName("title")
     private String title;
@@ -26,6 +29,18 @@ public class Episode {
         this.id = id;
         this.audioUrl = audioUrl;
     }
+
+    public static final Creator<Episode> CREATOR = new Creator<Episode>() {
+        @Override
+        public Episode createFromParcel(Parcel in) {
+            return new Episode(in);
+        }
+
+        @Override
+        public Episode[] newArray(int size) {
+            return new Episode[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -73,5 +88,29 @@ public class Episode {
 
     public void setAudioUrl(String audioUrl) {
         this.audioUrl = audioUrl;
+    }
+
+    protected Episode(Parcel in) {
+        title = in.readString();
+        publicationDateMiliseconds = in.readString();
+        description = in.readString();
+        audioLength = in.readInt();
+        id = in.readString();
+        audioUrl = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(title);
+        parcel.writeString(publicationDateMiliseconds);
+        parcel.writeString(description);
+        parcel.writeInt(audioLength);
+        parcel.writeString(id);
+        parcel.writeString(audioUrl);
     }
 }
