@@ -14,6 +14,7 @@ public class PlayerViewModel extends ViewModel {
 
     private EpisodeDatabase episodeDatabase;
     private MutableLiveData<EpisodeEntity> episodeEntityLiveData;
+    private boolean isBound;
 
     public PlayerViewModel(EpisodeDatabase episodeDatabase) {
         this.episodeDatabase = episodeDatabase;
@@ -37,5 +38,13 @@ public class PlayerViewModel extends ViewModel {
 
     public void notifyEpisodeLiveData() {
         AsyncTask.execute(() -> episodeEntityLiveData.postValue(episodeDatabase.episodeDao().getEpisode()));
+    }
+
+    public boolean isBound() {
+        return isBound;
+    }
+
+    public void setIsBound(boolean isBound) {
+        this.isBound = isBound;
     }
 }

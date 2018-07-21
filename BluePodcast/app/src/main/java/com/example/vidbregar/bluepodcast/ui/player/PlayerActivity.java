@@ -35,7 +35,6 @@ public class PlayerActivity extends AppCompatActivity {
     private PlayerService playerService;
     private EpisodeEntity episodeEntity;
     private SharedPreferencesUtil sharedPreferencesUtil;
-    private boolean isBound;
 
     @BindView(R.id.player_view)
     PlayerControlView playerControlView;
@@ -119,8 +118,9 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (isBound) {
+        if (playerViewModel.isBound()) {
             unbindService(serviceConnection);
+            playerViewModel.setIsBound(false);
         }
         sharedPreferencesUtil.setIsApplicationAlive(false);
     }
@@ -132,18 +132,18 @@ public class PlayerActivity extends AppCompatActivity {
                                        IBinder service) {
             PlayerService.PlayerBinder binder = (PlayerService.PlayerBinder) service;
             playerService = binder.getService();
-            isBound = true;
+            playerViewModel.setIsBound(true);
             startPlaying();
         }
 
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
-            isBound = false;
+            playerViewModel.setIsBound(true);
         }
     };
 
     private void startPlaying() {
-        if (isBound) {
+        if (playerViewModel.isBound()) {
             playerService.playOrPause(episodeEntity.getAudioUrl());
             playerControlView.setPlayer(playerService.simpleExoPlayer);
         }
