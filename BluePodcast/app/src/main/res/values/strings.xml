@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BluePodcast</string>
+    <string name="app_name">Blue Podcast</string>
     <string name="nav_bar_menu_home">Home</string>
     <string name="nav_bar_menu_search">Search</string>
     <string name="nav_bar_menu_favorites">Favorites</string>

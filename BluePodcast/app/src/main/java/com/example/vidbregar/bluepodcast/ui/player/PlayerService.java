@@ -12,6 +12,7 @@ import android.support.v4.media.session.MediaControllerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
 
+import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeEntity;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -31,6 +32,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.squareup.picasso.Picasso;
 
 import static com.example.vidbregar.bluepodcast.ui.player.PlayerConstants.*;
 
@@ -38,6 +40,7 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
 
     public SimpleExoPlayer simpleExoPlayer;
     private String audioUrl;
+    private EpisodeEntity episode;
     private String playerStatus;
     private AudioManager audioManager;
     private NotificationUtil notificationUtil;
@@ -105,6 +108,10 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
         } else {
             initializePlayer(url);
         }
+    }
+
+    public void setEpisode(EpisodeEntity episode) {
+        this.episode = episode;
     }
 
     public void initializePlayer(String audioUrl) {
@@ -222,7 +229,7 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
         }
 
         if (!playerStatus.equals(IDLE))
-            notificationUtil.startNotification(playerStatus);
+            notificationUtil.startNotification(playerStatus, episode);
     }
 
     public String getPlayerStatus() {

@@ -12,7 +12,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import static com.example.vidbregar.bluepodcast.ui.player.PlayerConstants.*;
 
 import com.example.vidbregar.bluepodcast.R;
-
+import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeEntity;
 
 public class NotificationUtil {
 
@@ -31,7 +31,7 @@ public class NotificationUtil {
         return PendingIntent.getService(service, requestCode, intent, 0);
     }
 
-    public void startNotification(String playerStatus) {
+    public void startNotification(String playerStatus, EpisodeEntity episode) {
         int playPauseIcon;
         PendingIntent playPauseAction;
 
@@ -55,9 +55,10 @@ public class NotificationUtil {
         createNotificationChannel(service);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(service, NOTIFICATION_CHANNEL_ID)
                 .setContentIntent(playerPendingIntent)
-                .setSmallIcon(R.drawable.podcast_image)
-                .setContentTitle("Service Running")
-                .setContentText("Exoplayer service is running")
+                .setShowWhen(false)
+                .setSmallIcon(R.drawable.ic_notification_small)
+                .setContentTitle(episode.getEpisodeTitle())
+                .setContentText(episode.getPublisher())
                 .setChannelId(NOTIFICATION_CHANNEL_ID)
                 .setSound(null)
                 .addAction(playPauseIcon, "play pause", playPauseAction)

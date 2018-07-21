@@ -173,6 +173,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private void startPlaying() {
         if (playerViewModel.isBound()) {
+            playerService.setEpisode(episodeEntity);
             playerService.playOrPause(episodeEntity.getAudioUrl());
             playerControlView.setPlayer(playerService.simpleExoPlayer);
         }
