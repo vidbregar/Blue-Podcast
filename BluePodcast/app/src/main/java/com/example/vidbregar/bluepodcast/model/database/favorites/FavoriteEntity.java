@@ -3,18 +3,18 @@ package com.example.vidbregar.bluepodcast.model.database.favorites;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity(tableName = "favorites_table")
 public class FavoriteEntity {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "episode_title")
+    private String episodeTitle;
 
     @ColumnInfo(name = "thumbnail_url")
     private String thumbnailUrl;
-
-    @ColumnInfo(name = "episode_title")
-    private String episodeTitle;
 
     @ColumnInfo(name = "publisher")
     private String publisher;
@@ -22,19 +22,20 @@ public class FavoriteEntity {
     @ColumnInfo(name = "audio_url")
     private String audioUrl;
 
-    public FavoriteEntity(String thumbnailUrl, String episodeTitle, String publisher, String audioUrl) {
-        this.thumbnailUrl = thumbnailUrl;
+    public FavoriteEntity(@NonNull String episodeTitle, String thumbnailUrl, String publisher, String audioUrl) {
         this.episodeTitle = episodeTitle;
+        this.thumbnailUrl = thumbnailUrl;
         this.publisher = publisher;
         this.audioUrl = audioUrl;
     }
 
-    public int getId() {
-        return id;
+    @NonNull
+    public String getEpisodeTitle() {
+        return episodeTitle;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setEpisodeTitle(@NonNull String episodeTitle) {
+        this.episodeTitle = episodeTitle;
     }
 
     public String getThumbnailUrl() {
@@ -43,14 +44,6 @@ public class FavoriteEntity {
 
     public void setThumbnailUrl(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
-    }
-
-    public String getEpisodeTitle() {
-        return episodeTitle;
-    }
-
-    public void setEpisodeTitle(String episodeTitle) {
-        this.episodeTitle = episodeTitle;
     }
 
     public String getPublisher() {

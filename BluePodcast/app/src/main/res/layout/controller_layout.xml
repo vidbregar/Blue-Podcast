@@ -75,7 +75,7 @@
             android:src="@drawable/ic_forward_30" />
 
         <CheckBox
-            android:id="@+id/add_to_favorites_btn"
+            android:id="@+id/add_to_favorites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/favorite_selector" />

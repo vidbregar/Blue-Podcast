@@ -14,6 +14,12 @@ public interface FavoritesDao {
     void insertFavorite(FavoriteEntity favoriteEntity);
 
     @Query("SELECT * FROM favorites_table")
-    LiveData<List<FavoriteEntity>> getFavorites();
+    LiveData<List<FavoriteEntity>> getAllFavorites();
+
+    @Query("SELECT * FROM favorites_table WHERE episode_title = :title")
+    FavoriteEntity getFavorite(String title);
+
+    @Query("DELETE FROM favorites_table WHERE episode_title = :title")
+    void removeFavorite(String title);
 
 }

@@ -5,16 +5,21 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.AsyncTask;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeDatabase;
 import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeEntity;
+import com.example.vidbregar.bluepodcast.model.database.favorites.FavoritesDatabase;
 import com.example.vidbregar.bluepodcast.ui.main.MainActivity;
+import com.example.vidbregar.bluepodcast.util.EntityConverterUtil;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModelFactory;
@@ -31,6 +36,7 @@ public class PlayerActivity extends AppCompatActivity {
     public static final String INTENT_EXTRA_EPISODE = "intent-extra-episode";
 
     private EpisodeDatabase episodeDatabase;
+    private FavoritesDatabase favoritesDatabase;
     private PlayerViewModel playerViewModel;
     private PlayerService playerService;
     private EpisodeEntity episodeEntity;
@@ -44,6 +50,8 @@ public class PlayerActivity extends AppCompatActivity {
     TextView episodeTitle;
     @BindView(R.id.episode_publisher)
     TextView episodePublisher;
+    @BindView(R.id.add_to_favorites)
+    CheckBox addToFavorites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +59,8 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
         ButterKnife.bind(this);
         episodeDatabase = EpisodeDatabase.getInstance(getApplicationContext());
-        PlayerViewModelFactory playerViewModelFactory = new PlayerViewModelFactory(episodeDatabase);
+        favoritesDatabase = FavoritesDatabase.getInstance(getApplicationContext());
+        PlayerViewModelFactory playerViewModelFactory = new PlayerViewModelFactory(episodeDatabase, favoritesDatabase);
         playerViewModel = ViewModelProviders.of(this, playerViewModelFactory).get(PlayerViewModel.class);
         sharedPreferencesUtil = new SharedPreferencesUtil(getApplicationContext());
         sharedPreferencesUtil.setIsApplicationAlive(true);
@@ -77,7 +86,18 @@ public class PlayerActivity extends AppCompatActivity {
             if (episodeEntity != null) {
                 this.episodeEntity = episodeEntity;
                 bindViews();
+                setUpAddToFavorites();
                 preparePlayer();
+            }
+        });
+    }
+
+    private void setUpAddToFavorites() {
+        addToFavorites.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            if (isChecked) {
+                playerViewModel.addFavorite(episodeEntity);
+            } else {
+                playerViewModel.removeFavorite(episodeEntity);
             }
         });
     }
