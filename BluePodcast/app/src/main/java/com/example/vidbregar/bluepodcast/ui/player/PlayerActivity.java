@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
@@ -19,7 +18,6 @@ import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeDatabase;
 import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeEntity;
 import com.example.vidbregar.bluepodcast.model.database.favorites.FavoritesDatabase;
 import com.example.vidbregar.bluepodcast.ui.main.MainActivity;
-import com.example.vidbregar.bluepodcast.util.EntityConverterUtil;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModelFactory;
@@ -93,11 +91,22 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void setUpAddToFavorites() {
+        restoreFavoritesState();
         addToFavorites.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             if (isChecked) {
                 playerViewModel.addFavorite(episodeEntity);
+                playerViewModel.setIsAddedToFavorites(true);
             } else {
                 playerViewModel.removeFavorite(episodeEntity);
+                playerViewModel.setIsAddedToFavorites(false);
+            }
+        });
+    }
+
+    private void restoreFavoritesState() {
+        AsyncTask.execute(() -> {
+            if (playerViewModel.getFavorite(episodeEntity.getEpisodeTitle()) != null) {
+                PlayerActivity.this.runOnUiThread(() -> addToFavorites.setChecked(true));
             }
         });
     }

@@ -19,6 +19,7 @@ public class PlayerViewModel extends ViewModel {
     private FavoritesDatabase favoritesDatabase;
     private MutableLiveData<EpisodeEntity> episodeEntityLiveData;
     private boolean isBound;
+    private boolean isAddedToFavorites;
 
     public PlayerViewModel(EpisodeDatabase episodeDatabase, FavoritesDatabase favoritesDatabase) {
         this.episodeDatabase = episodeDatabase;
@@ -74,5 +75,13 @@ public class PlayerViewModel extends ViewModel {
 
     public void setIsBound(boolean isBound) {
         this.isBound = isBound;
+    }
+
+    public boolean isAddedToFavorites() {
+        return isAddedToFavorites;
+    }
+
+    public void setIsAddedToFavorites(boolean isAddedToFavorites) {
+        this.isAddedToFavorites = isAddedToFavorites;
     }
 }
