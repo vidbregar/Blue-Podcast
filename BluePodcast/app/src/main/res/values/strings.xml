@@ -12,4 +12,5 @@
     <string name="play_the_episode_content_description">Play the episode</string>
     <string name="notification_channel_name">Audio Controls</string>
     <string name="notification_channel_description">Display notification with audio controls and episode information</string>
+    <string name="favorites_your_best_label">Your best...</string>
 </resources>
