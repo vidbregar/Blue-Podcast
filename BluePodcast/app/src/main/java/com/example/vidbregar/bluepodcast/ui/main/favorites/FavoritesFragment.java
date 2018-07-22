@@ -56,5 +56,7 @@ public class FavoritesFragment extends Fragment {
         favoritesRecyclerView.setLayoutManager(linearLayoutManager);
         favoritesAdapter = new FavoritesAdapter();
         favoritesRecyclerView.setAdapter(favoritesAdapter);
+        favoritesViewModel.getFavorites().observe(this,
+                favorites -> favoritesAdapter.swapFavorites(favorites));
     }
 }
