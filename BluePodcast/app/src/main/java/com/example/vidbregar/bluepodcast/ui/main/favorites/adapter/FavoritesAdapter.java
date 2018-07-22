@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.database.favorites.FavoriteEntity;
+import com.example.vidbregar.bluepodcast.ui.main.favorites.listener.FavoriteClickListener;
 
 import java.util.List;
 
@@ -18,6 +19,11 @@ import butterknife.ButterKnife;
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.ViewHolder> {
 
     private List<FavoriteEntity> favorites;
+    private FavoriteClickListener favoriteClickListener;
+
+    public FavoritesAdapter(FavoriteClickListener favoriteClickListener) {
+        this.favoriteClickListener = favoriteClickListener;
+    }
 
     @NonNull
     @Override
@@ -40,7 +46,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         else return favorites.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.podcast_favorite_title)
         TextView favoriteTitleTextView;
@@ -50,6 +56,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.View
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            favoriteClickListener.onFavoriteClickListener(favorites.get(getAdapterPosition()));
         }
     }
 
