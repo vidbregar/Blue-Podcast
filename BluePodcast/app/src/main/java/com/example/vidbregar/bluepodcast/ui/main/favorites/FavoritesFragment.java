@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -50,8 +51,15 @@ public class FavoritesFragment extends Fragment implements FavoriteClickListener
         View root = inflater.inflate(R.layout.fragment_favorites, container, false);
         context = root.getContext();
         ButterKnife.bind(this, root);
+        hideUpNavigation();
         loadFavorites();
         return root;
+    }
+
+    private void hideUpNavigation() {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
+        setHasOptionsMenu(false);
     }
 
     private void loadFavorites() {
