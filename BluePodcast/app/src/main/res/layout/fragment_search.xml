@@ -38,9 +38,9 @@
             android:id="@+id/search_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:focusableInTouchMode="true"
-            android:focusable="true"
             android:descendantFocusability="beforeDescendants"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             app:layout_constraintEnd_toStartOf="@id/clear_query_btn"
             app:layout_constraintStart_toEndOf="@id/search_icon"
             app:layout_constraintTop_toTopOf="parent">
@@ -138,6 +138,40 @@
                 app:layout_constraintEnd_toEndOf="@id/search_loading_indicator"
                 app:layout_constraintStart_toStartOf="@+id/search_loading_indicator"
                 app:layout_constraintTop_toBottomOf="@id/search_loading_indicator" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/no_results_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/no_results_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_results_found_label"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/try_different_keywords_label"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/no_results_label" />
 
         </android.support.constraint.ConstraintLayout>
 

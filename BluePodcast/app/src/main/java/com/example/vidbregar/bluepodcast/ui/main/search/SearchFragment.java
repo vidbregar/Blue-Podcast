@@ -57,6 +57,8 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
     private SearchResultsAdapter searchResultsAdapter;
     @BindView(R.id.search_loading_container)
     ConstraintLayout searchLoadingContainer;
+    @BindView(R.id.no_results_container)
+    ConstraintLayout noResultsFoundContainer;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,9 +97,16 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
         searchResultsAdapter = new SearchResultsAdapter(this);
         searchResultsRecyclerView.setAdapter(searchResultsAdapter);
         searchViewModel.getSearchResults().observe(this, search -> {
-            searchLoadingContainer.setVisibility(View.GONE);
-            searchResultsContainer.setVisibility(View.VISIBLE);
-            searchResultsAdapter.swapSearchResults(search.getResults());
+            if (search.getResults() == null || search.getResults().size() == 0) {
+                noResultsFoundContainer.setVisibility(View.VISIBLE);
+                searchLoadingContainer.setVisibility(View.GONE);
+                searchResultsContainer.setVisibility(View.GONE);
+            } else {
+                noResultsFoundContainer.setVisibility(View.GONE);
+                searchLoadingContainer.setVisibility(View.GONE);
+                searchResultsContainer.setVisibility(View.VISIBLE);
+                searchResultsAdapter.swapSearchResults(search.getResults());
+            }
         });
     }
 
@@ -167,6 +176,7 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
 
     private void performSearch(String query) {
         searchLoadingContainer.setVisibility(View.VISIBLE);
+        noResultsFoundContainer.setVisibility(View.GONE);
         searchResultsContainer.setVisibility(View.GONE);
         searchViewModel.search(query);
     }

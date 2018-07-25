@@ -15,4 +15,6 @@
     <string name="favorites_your_best_label">Your best...</string>
     <string name="search_hint">Search for podcasts</string>
     <string name="search_your_desires_label">Your desires...</string>
+    <string name="no_results_found_label">No results found</string>
+    <string name="try_different_keywords_label">Try different keywords</string>
 </resources>
