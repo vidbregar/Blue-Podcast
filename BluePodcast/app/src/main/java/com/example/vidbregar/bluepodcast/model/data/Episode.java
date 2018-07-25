@@ -10,7 +10,7 @@ public class Episode implements Parcelable {
     @SerializedName("title")
     private String title;
     @SerializedName("pub_date_ms")
-    private String publicationDateMiliseconds;
+    private String publicationDateMilliseconds;
     @SerializedName("description")
     private String description;
     @SerializedName("audio_length")
@@ -20,10 +20,10 @@ public class Episode implements Parcelable {
     @SerializedName("audio")
     private String audioUrl;
 
-    public Episode(String title, String publicationDateMiliseconds, String description,
+    public Episode(String title, String publicationDateMilliseconds, String description,
                    int audioLength, String id, String audioUrl) {
         this.title = title;
-        this.publicationDateMiliseconds = publicationDateMiliseconds;
+        this.publicationDateMilliseconds = publicationDateMilliseconds;
         this.description = description;
         this.audioLength = audioLength;
         this.id = id;
@@ -50,12 +50,12 @@ public class Episode implements Parcelable {
         this.title = title;
     }
 
-    public String getPublicationDateMiliseconds() {
-        return publicationDateMiliseconds;
+    public String getPublicationDateMilliseconds() {
+        return publicationDateMilliseconds;
     }
 
-    public void setPublicationDateMiliseconds(String publicationDateMiliseconds) {
-        this.publicationDateMiliseconds = publicationDateMiliseconds;
+    public void setPublicationDateMilliseconds(String publicationDateMilliseconds) {
+        this.publicationDateMilliseconds = publicationDateMilliseconds;
     }
 
     public String getDescription() {
@@ -92,7 +92,7 @@ public class Episode implements Parcelable {
 
     protected Episode(Parcel in) {
         title = in.readString();
-        publicationDateMiliseconds = in.readString();
+        publicationDateMilliseconds = in.readString();
         description = in.readString();
         audioLength = in.readInt();
         id = in.readString();
@@ -107,7 +107,7 @@ public class Episode implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(title);
-        parcel.writeString(publicationDateMiliseconds);
+        parcel.writeString(publicationDateMilliseconds);
         parcel.writeString(description);
         parcel.writeInt(audioLength);
         parcel.writeString(id);
