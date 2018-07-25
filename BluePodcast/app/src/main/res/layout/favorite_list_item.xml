@@ -25,7 +25,7 @@
             android:paddingTop="8dp"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@id/podcast_play_episode"
+            app:layout_constraintEnd_toStartOf="@id/podcast_play_favorite"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="The Person You Become" />

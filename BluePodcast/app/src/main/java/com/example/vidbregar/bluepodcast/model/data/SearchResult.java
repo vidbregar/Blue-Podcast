@@ -7,10 +7,10 @@ public class SearchResult {
 
     @SerializedName("description_original")
     private String description;
-    @SerializedName("thumbnail")
-    private String thumbnail;
+    @SerializedName("thumbnailUrl")
+    private String thumbnailUrl;
     @SerializedName("pub_date_ms")
-    private int publicationDateMilliseconds;
+    private long publicationDateMilliseconds;
     @SerializedName("audio_length")
     private String audioLength;
     @SerializedName("audio")
@@ -34,19 +34,19 @@ public class SearchResult {
         this.description = description;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
-    public int getPublicationDateMilliseconds() {
+    public long getPublicationDateMilliseconds() {
         return publicationDateMilliseconds;
     }
 
-    public void setPublicationDateMilliseconds(int publicationDateMilliseconds) {
+    public void setPublicationDateMilliseconds(long publicationDateMilliseconds) {
         this.publicationDateMilliseconds = publicationDateMilliseconds;
     }
 

@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
 
     private Context context;
     private PodcastViewModel podcastViewModel;
-    private PodcastService podcastService;
+    private PodcastClient podcastClient;
     private SharedPreferencesUtil sharedPreferencesUtil;
 
     // Podcasts container
@@ -92,9 +92,9 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        podcastService = new PodcastClient().getPodcastService();
+        podcastClient = new PodcastClient();
         sharedPreferencesUtil = new SharedPreferencesUtil(getActivity().getApplicationContext());
-        PodcastViewModelFactory podcastViewModelFactory = new PodcastViewModelFactory(podcastService, sharedPreferencesUtil);
+        PodcastViewModelFactory podcastViewModelFactory = new PodcastViewModelFactory(podcastClient, sharedPreferencesUtil);
         podcastViewModel = ViewModelProviders.of(getActivity(), podcastViewModelFactory).get(PodcastViewModel.class);
         // Used for handling back button when podcast detail layout is displayed
         ((MainActivity) getActivity()).setOnBackPressedListener(this);

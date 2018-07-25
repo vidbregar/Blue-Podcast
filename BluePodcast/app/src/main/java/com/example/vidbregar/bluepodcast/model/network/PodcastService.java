@@ -26,6 +26,6 @@ public interface PodcastService {
 
     @GET("api/v1/search")
     Call<Search> search(@Header("X-Mashape-Key") String xMashapeKey,
-                        @Query("q") String query);
+                        @Query(value = "q", encoded = true) String query);
 
 }

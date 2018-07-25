@@ -9,7 +9,7 @@ import com.example.vidbregar.bluepodcast.model.data.Channel;
 import com.example.vidbregar.bluepodcast.model.data.Episode;
 import com.example.vidbregar.bluepodcast.model.data.Podcast;
 import com.example.vidbregar.bluepodcast.model.data.PodcastGenre;
-import com.example.vidbregar.bluepodcast.model.network.PodcastService;
+import com.example.vidbregar.bluepodcast.model.network.PodcastClient;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 
 import java.util.List;
@@ -23,9 +23,9 @@ public class PodcastViewModel extends ViewModel {
     private static final int COMEDY_GENRE_ID = 133;
     private static final int BUSINESS_GENRE_ID = 93;
     private static final int HEALTH_GENRE_ID = 88;
-    private static final String API_KEY = "BuildConfig.API_KEY";
+    private static final String API_KEY = BuildConfig.API_KEY;
 
-    private PodcastService podcastService;
+    private PodcastClient podcastClient;
     // Podcasts
     private MutableLiveData<List<Channel>> bestPodcastsLiveData;
     private MutableLiveData<List<Channel>> comedyPodcastsLiveData;
@@ -38,8 +38,8 @@ public class PodcastViewModel extends ViewModel {
     private boolean isOnPodcastDetailLayout;
     private SharedPreferencesUtil sharedPreferencesUtil;
 
-    public PodcastViewModel(PodcastService podcastService, SharedPreferencesUtil sharedPreferencesUtil) {
-        this.podcastService = podcastService;
+    public PodcastViewModel(PodcastClient podcastClient, SharedPreferencesUtil sharedPreferencesUtil) {
+        this.podcastClient = podcastClient;
         this.sharedPreferencesUtil = sharedPreferencesUtil;
     }
 
@@ -83,7 +83,8 @@ public class PodcastViewModel extends ViewModel {
     }
 
     public void getEpisodesFromApi(String podcastId) {
-        Call<Podcast> podcastCall = podcastService.getPodcast(BuildConfig.API_KEY, podcastId);
+        Call<Podcast> podcastCall = podcastClient.getPodcastService()
+                .getPodcast(API_KEY, podcastId);
         podcastCall.enqueue(new Callback<Podcast>() {
             @Override
             public void onResponse(Call<Podcast> call, Response<Podcast> response) {
@@ -101,7 +102,8 @@ public class PodcastViewModel extends ViewModel {
     }
 
     private void getBestPodcasts() {
-        Call<PodcastGenre> bestPodcastsCall = podcastService.getBestPodcasts(BuildConfig.API_KEY);
+        Call<PodcastGenre> bestPodcastsCall = podcastClient.getPodcastService()
+                .getBestPodcasts(API_KEY);
         bestPodcastsCall.enqueue(new Callback<PodcastGenre>() {
             @Override
             public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {
@@ -119,7 +121,8 @@ public class PodcastViewModel extends ViewModel {
     }
 
     private void getComedyPodcasts() {
-        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(API_KEY, COMEDY_GENRE_ID);
+        Call<PodcastGenre> comedyPodcastsCall = podcastClient.getPodcastService()
+                .getGenrePodcasts(API_KEY, COMEDY_GENRE_ID);
         comedyPodcastsCall.enqueue(new Callback<PodcastGenre>() {
             @Override
             public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {
@@ -137,7 +140,8 @@ public class PodcastViewModel extends ViewModel {
     }
 
     private void getBusinessPodcasts() {
-        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(API_KEY, BUSINESS_GENRE_ID);
+        Call<PodcastGenre> comedyPodcastsCall = podcastClient.getPodcastService()
+                .getGenrePodcasts(API_KEY, BUSINESS_GENRE_ID);
         comedyPodcastsCall.enqueue(new Callback<PodcastGenre>() {
             @Override
             public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {
@@ -155,7 +159,8 @@ public class PodcastViewModel extends ViewModel {
     }
 
     private void getHealthPodcasts() {
-        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(API_KEY, HEALTH_GENRE_ID);
+        Call<PodcastGenre> comedyPodcastsCall = podcastClient.getPodcastService()
+                .getGenrePodcasts(API_KEY, HEALTH_GENRE_ID);
         comedyPodcastsCall.enqueue(new Callback<PodcastGenre>() {
             @Override
             public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {

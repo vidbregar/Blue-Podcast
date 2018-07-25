@@ -82,7 +82,7 @@
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_view">
+            app:layout_constraintTop_toBottomOf="@id/search_container">
 
             <TextView
                 android:id="@+id/your_desire_label"
