@@ -93,6 +93,9 @@ dependencies {
     // Jsoup
     implementation 'org.jsoup:jsoup:1.11.3'
 
+    // AdMob
+    freeImplementation 'com.google.android.gms:play-services-ads:15.0.1'
+
     // JUnit
     testImplementation "junit:junit:4.12"
 

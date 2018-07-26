@@ -19,11 +19,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.vidbregar.bluepodcast.AdUtil;
+import com.example.vidbregar.bluepodcast.BuildConfig;
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
 import com.example.vidbregar.bluepodcast.model.data.Episode;
 import com.example.vidbregar.bluepodcast.model.network.PodcastClient;
-import com.example.vidbregar.bluepodcast.model.network.PodcastService;
 import com.example.vidbregar.bluepodcast.ui.main.MainActivity;
 import com.example.vidbregar.bluepodcast.ui.main.home.adapter.BestPodcastsAdapter;
 import com.example.vidbregar.bluepodcast.ui.main.home.adapter.EpisodesAdapter;
@@ -107,10 +108,17 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
         context = root.getContext();
         ButterKnife.bind(this, root);
 
+        displayAds(root);
         loadHomePodcasts();
         observeEpisodes();
         restoreCorrectLayout();
         return root;
+    }
+
+    private void displayAds(View root) {
+        if (BuildConfig.FLAVOR.equals("free")) {
+            AdUtil.loadAd(root);
+        }
     }
 
     private void loadHomePodcasts() {

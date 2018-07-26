@@ -156,6 +156,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/best_podcasts_label" />
 
+            <include
+                android:id="@+id/ad_banner"
+                layout="@layout/ad_banner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/comedy_podcasts_label"
+                app:layout_constraintTop_toBottomOf="@id/best_podcasts_rv" />
+
             <TextView
                 android:id="@+id/comedy_podcasts_label"
                 android:layout_width="0dp"
@@ -168,7 +178,7 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/best_podcasts_rv" />
+                app:layout_constraintTop_toBottomOf="@id/ad_banner" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/comedy_podcasts_rv"
