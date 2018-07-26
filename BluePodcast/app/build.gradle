@@ -19,6 +19,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "standard"
+    productFlavors {
+        free {
+            dimension "standard"
+            applicationIdSuffix ".free"
+        }
+        paid {
+            dimension "standard"
+            applicationIdSuffix ".paid"
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
