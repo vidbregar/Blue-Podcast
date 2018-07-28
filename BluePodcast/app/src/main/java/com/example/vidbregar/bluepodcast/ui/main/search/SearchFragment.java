@@ -86,6 +86,14 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
         return root;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && searchViewContainer != null) {
+            searchViewContainer.requestFocus();
+        }
+    }
+
     private void hideUpNavigation() {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
@@ -135,6 +143,7 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
     }
 
     private void setUpSearch() {
+        searchViewContainer.requestFocus();
         searchView.setOnFocusChangeListener((view, hasFocus) -> {
             if (hasFocus) {
                 dismissSearchButton.setVisibility(View.VISIBLE);
