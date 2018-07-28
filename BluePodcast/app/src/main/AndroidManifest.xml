@@ -25,6 +25,10 @@
 
         <service android:name=".ui.player.PlayerService" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="${fabricApiKey}"/>
+
     </application>
 
 </manifest>

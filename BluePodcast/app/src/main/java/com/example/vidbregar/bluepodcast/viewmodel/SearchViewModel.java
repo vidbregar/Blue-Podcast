@@ -14,7 +14,7 @@ import retrofit2.Response;
 
 public class SearchViewModel extends ViewModel {
 
-    private static final String API_KEY = BuildConfig.API_KEY;
+    private static final String API_KEY = BuildConfig.LISTEN_NOTES_API_KEY;
 
     private PodcastClient podcastClient;
     private MutableLiveData<Search> searchLiveData;
