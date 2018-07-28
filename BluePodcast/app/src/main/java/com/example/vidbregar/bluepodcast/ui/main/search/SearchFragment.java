@@ -31,6 +31,7 @@ import com.example.vidbregar.bluepodcast.ui.main.search.listener.SearchResultCli
 import com.example.vidbregar.bluepodcast.ui.player.PlayerActivity;
 import com.example.vidbregar.bluepodcast.viewmodel.SearchViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.SearchViewModelFactory;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +42,7 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
     private SearchViewModel searchViewModel;
     private SearchViewModelFactory searchViewModelFactory;
     private PodcastClient podcastClient;
+    private FirebaseAnalytics firebaseAnalytics;
 
     @BindView(R.id.dismiss_search_btn)
     ImageButton dismissSearchButton;
@@ -66,6 +68,7 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
         podcastClient = new PodcastClient();
         searchViewModelFactory = new SearchViewModelFactory(podcastClient);
         searchViewModel = ViewModelProviders.of(this, searchViewModelFactory).get(SearchViewModel.class);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
     }
 
     @Override
@@ -179,6 +182,13 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
         noResultsFoundContainer.setVisibility(View.GONE);
         searchResultsContainer.setVisibility(View.GONE);
         searchViewModel.search(query);
+        logToFirebase(query);
+    }
+
+    private void logToFirebase(String query) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SEARCH_TERM, query);
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
     }
 
     private void setUpDismissSearchButton() {

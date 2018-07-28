@@ -22,6 +22,7 @@ import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModelFactory;
 import com.google.android.exoplayer2.ui.PlayerControlView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -33,12 +34,16 @@ public class PlayerActivity extends AppCompatActivity {
     public static final String INTENT_EXTRA_PODCAST = "intent-extra-podcast";
     public static final String INTENT_EXTRA_EPISODE = "intent-extra-episode";
 
+    private static final String EPISODE_TITLE_FIREBASE_PARAM = "episode_title";
+    private static final String ADD_TO_FAVORITES_FIREBASE_EVENT = "add_to_favorites";
+
     private EpisodeDatabase episodeDatabase;
     private FavoritesDatabase favoritesDatabase;
     private PlayerViewModel playerViewModel;
     private PlayerService playerService;
     private EpisodeEntity episodeEntity;
     private SharedPreferencesUtil sharedPreferencesUtil;
+    private FirebaseAnalytics firebaseAnalytics;
 
     @BindView(R.id.player_view)
     PlayerControlView playerControlView;
@@ -62,6 +67,7 @@ public class PlayerActivity extends AppCompatActivity {
         playerViewModel = ViewModelProviders.of(this, playerViewModelFactory).get(PlayerViewModel.class);
         sharedPreferencesUtil = new SharedPreferencesUtil(getApplicationContext());
         sharedPreferencesUtil.setIsApplicationAlive(true);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
         loadData();
     }
 
@@ -96,11 +102,18 @@ public class PlayerActivity extends AppCompatActivity {
             if (isChecked) {
                 playerViewModel.addFavorite(episodeEntity);
                 playerViewModel.setIsAddedToFavorites(true);
+                logToFirebase(episodeEntity.getEpisodeTitle());
             } else {
                 playerViewModel.removeFavorite(episodeEntity);
                 playerViewModel.setIsAddedToFavorites(false);
             }
         });
+    }
+
+    private void logToFirebase(String episodeTitle) {
+        Bundle bundle = new Bundle();
+        bundle.putString(EPISODE_TITLE_FIREBASE_PARAM, episodeTitle);
+        firebaseAnalytics.logEvent(ADD_TO_FAVORITES_FIREBASE_EVENT, bundle);
     }
 
     private void restoreFavoritesState() {

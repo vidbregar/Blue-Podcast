@@ -74,3 +74,6 @@ secrets.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Firebase
+google-services.json
