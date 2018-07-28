@@ -115,6 +115,21 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
         return root;
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser && podcastViewModel != null &&
+                podcastViewModel.getIsOnPodcastDetailLayout()) {
+            displayUpNavigation();
+        }
+    }
+
+    private void displayUpNavigation() {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+        setHasOptionsMenu(true);
+    }
+
     private void displayAds(View root) {
         if (BuildConfig.FLAVOR.equals("free")) {
             AdUtil.loadAd(root);
@@ -168,12 +183,6 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
             podcastWebsiteIntent.setData(Uri.parse(podcast.getWebsite()));
             startActivity(podcastWebsiteIntent);
         });
-    }
-
-    private void displayUpNavigation() {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-        setHasOptionsMenu(true);
     }
 
     @Override
