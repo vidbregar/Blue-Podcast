@@ -2,6 +2,16 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
+    signingConfigs {
+        signConfig {
+            Properties props = new Properties()
+            props.load(new FileInputStream(new File('secrets.properties')))
+            keyAlias props['KEY_ALIAS']
+            keyPassword props['KEY_PASSWORD']
+            storeFile file(props['STORE_FILE'])
+            storePassword props['STORE_PASSWORD']
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.vidbregar.bluepodcast"
@@ -10,7 +20,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [ fabricApiKey: getFabricApiKey()]
+        manifestPlaceholders = [fabricApiKey: getFabricApiKey()]
+        signingConfig signingConfigs.signConfig
     }
     buildTypes {
         applicationVariants.all { variant ->
@@ -26,10 +37,12 @@ android {
         free {
             dimension "standard"
             applicationIdSuffix ".free"
+            signingConfig signingConfigs.signConfig
         }
         paid {
             dimension "standard"
             applicationIdSuffix ".paid"
+            signingConfig signingConfigs.signConfig
         }
     }
     compileOptions {
@@ -57,12 +70,11 @@ dependencies {
     final def OKHTTP3_VERSION = "3.10.0"
     final def LIFECYCLE_VERSION = "1.1.1"
     final def ROOM_VERSION = "1.1.1"
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:$ANDROID_SUPPORT_VERSION"
     implementation "com.android.support:cardview-v7:$ANDROID_SUPPORT_VERSION"
     implementation "com.android.support:support-compat:$ANDROID_SUPPORT_VERSION"
-    implementation "com.android.support.constraint:constraint-layout:1.1.2"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation "com.android.support:design:$ANDROID_SUPPORT_VERSION"
     implementation "android.arch.lifecycle:extensions:$LIFECYCLE_VERSION"
 
@@ -109,11 +121,11 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
 
     // JUnit
-    testImplementation "junit:junit:4.12"
+    testImplementation 'junit:junit:4.12'
 
     // Espresso
-    androidTestImplementation "com.android.support.test:runner:1.0.2"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

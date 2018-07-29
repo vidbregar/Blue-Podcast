@@ -24,8 +24,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:riv_corner_radius="4dp"
-            tools:src="@drawable/podcast_image" />
+            app:riv_corner_radius="4dp" />
 
         <TextView
             android:id="@+id/podcast_icon_title_tv"
