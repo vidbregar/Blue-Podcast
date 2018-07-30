@@ -19,6 +19,7 @@
             android:id="@+id/podcast_row_thumbnail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/podcast_thumbnail_content_description"
             android:padding="8dp"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"

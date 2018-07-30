@@ -12,9 +12,15 @@
     <string name="play_the_episode_content_description">Play the episode</string>
     <string name="notification_channel_name">Audio Controls</string>
     <string name="notification_channel_description">Display notification with audio controls and episode information</string>
-    <string name="favorites_your_best_label">Your best...</string>
+    <string name="favorites_your_best_label">Your best…</string>
     <string name="search_hint">Search for podcasts</string>
-    <string name="search_your_desires_label">Your desires...</string>
+    <string name="search_your_desires_label">Your desires…</string>
     <string name="no_results_found_label">No results found</string>
     <string name="try_different_keywords_label">Try different keywords</string>
+    <string name="episode_thumbnail_content_description">Episode thumbnail</string>
+    <string name="podcast_thumbnail_content_description">Podcast thumbnail</string>
+    <string name="podcast_website_button_content_description">Podcast\'s website</string>
+    <string name="search_icon_content_description">Search icon</string>
+    <string name="dismiss_search_button_content_description">Dismiss search button</string>
+    <string name="clear_query_button_content_description">Clear query button</string>
 </resources>
