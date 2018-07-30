@@ -17,21 +17,24 @@ import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
 import com.example.vidbregar.bluepodcast.model.data.Episode;
 import com.example.vidbregar.bluepodcast.model.database.favorites.FavoriteEntity;
-import com.example.vidbregar.bluepodcast.model.database.favorites.FavoritesDatabase;
 import com.example.vidbregar.bluepodcast.ui.main.favorites.adapter.FavoritesAdapter;
 import com.example.vidbregar.bluepodcast.ui.main.favorites.listener.FavoriteClickListener;
 import com.example.vidbregar.bluepodcast.ui.player.PlayerActivity;
 import com.example.vidbregar.bluepodcast.viewmodel.FavoritesViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.FavoritesViewModelFactory;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.AndroidSupportInjection;
 
 public class FavoritesFragment extends Fragment implements FavoriteClickListener {
 
     private Context context;
     private FavoritesViewModel favoritesViewModel;
-    private FavoritesDatabase favoritesDatabase;
+    @Inject
+    FavoritesViewModelFactory favoritesViewModelFactory;
 
     @BindView(R.id.favorites_rv)
     RecyclerView favoritesRecyclerView;
@@ -39,10 +42,10 @@ public class FavoritesFragment extends Fragment implements FavoriteClickListener
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        AndroidSupportInjection.inject(this);
         super.onCreate(savedInstanceState);
-        favoritesDatabase = FavoritesDatabase.getInstance(getActivity().getApplicationContext());
-        FavoritesViewModelFactory favoritesViewModelFactory = new FavoritesViewModelFactory(favoritesDatabase);
-        favoritesViewModel = ViewModelProviders.of(this, favoritesViewModelFactory).get(FavoritesViewModel.class);
+        favoritesViewModel = ViewModelProviders.of(this, favoritesViewModelFactory)
+                .get(FavoritesViewModel.class);
     }
 
     @Override

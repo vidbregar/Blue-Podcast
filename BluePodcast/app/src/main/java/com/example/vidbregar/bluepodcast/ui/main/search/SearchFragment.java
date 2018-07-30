@@ -20,13 +20,11 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
 import com.example.vidbregar.bluepodcast.model.data.Episode;
 import com.example.vidbregar.bluepodcast.model.data.SearchResult;
-import com.example.vidbregar.bluepodcast.model.network.PodcastClient;
 import com.example.vidbregar.bluepodcast.ui.main.search.adapter.SearchResultsAdapter;
 import com.example.vidbregar.bluepodcast.ui.main.search.listener.SearchResultClickListener;
 import com.example.vidbregar.bluepodcast.ui.player.PlayerActivity;
@@ -34,16 +32,21 @@ import com.example.vidbregar.bluepodcast.viewmodel.SearchViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.SearchViewModelFactory;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.AndroidSupportInjection;
 
 public class SearchFragment extends Fragment implements SearchResultClickListener {
 
     private Context context;
     private SearchViewModel searchViewModel;
-    private SearchViewModelFactory searchViewModelFactory;
-    private PodcastClient podcastClient;
-    private FirebaseAnalytics firebaseAnalytics;
+
+    @Inject
+    FirebaseAnalytics firebaseAnalytics;
+    @Inject
+    SearchViewModelFactory searchViewModelFactory;
 
     @BindView(R.id.dismiss_search_btn)
     ImageButton dismissSearchButton;
@@ -65,11 +68,9 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        AndroidSupportInjection.inject(this);
         super.onCreate(savedInstanceState);
-        podcastClient = new PodcastClient();
-        searchViewModelFactory = new SearchViewModelFactory(podcastClient);
         searchViewModel = ViewModelProviders.of(this, searchViewModelFactory).get(SearchViewModel.class);
-        firebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
     }
 
     @Override

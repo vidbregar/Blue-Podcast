@@ -14,9 +14,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.vidbregar.bluepodcast.R;
-import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeDatabase;
 import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeEntity;
-import com.example.vidbregar.bluepodcast.model.database.favorites.FavoritesDatabase;
 import com.example.vidbregar.bluepodcast.ui.main.MainActivity;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModel;
@@ -25,8 +23,11 @@ import com.google.android.exoplayer2.ui.PlayerControlView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PlayerActivity extends AppCompatActivity {
@@ -37,13 +38,16 @@ public class PlayerActivity extends AppCompatActivity {
     private static final String EPISODE_TITLE_FIREBASE_PARAM = "episode_title";
     private static final String ADD_TO_FAVORITES_FIREBASE_EVENT = "add_to_favorites";
 
-    private EpisodeDatabase episodeDatabase;
-    private FavoritesDatabase favoritesDatabase;
     private PlayerViewModel playerViewModel;
     private PlayerService playerService;
     private EpisodeEntity episodeEntity;
-    private SharedPreferencesUtil sharedPreferencesUtil;
-    private FirebaseAnalytics firebaseAnalytics;
+
+    @Inject
+    PlayerViewModelFactory playerViewModelFactory;
+    @Inject
+    SharedPreferencesUtil sharedPreferencesUtil;
+    @Inject
+    FirebaseAnalytics firebaseAnalytics;
 
     @BindView(R.id.player_view)
     PlayerControlView playerControlView;
@@ -58,16 +62,12 @@ public class PlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
         ButterKnife.bind(this);
-        episodeDatabase = EpisodeDatabase.getInstance(getApplicationContext());
-        favoritesDatabase = FavoritesDatabase.getInstance(getApplicationContext());
-        PlayerViewModelFactory playerViewModelFactory = new PlayerViewModelFactory(episodeDatabase, favoritesDatabase);
         playerViewModel = ViewModelProviders.of(this, playerViewModelFactory).get(PlayerViewModel.class);
-        sharedPreferencesUtil = new SharedPreferencesUtil(getApplicationContext());
         sharedPreferencesUtil.setIsApplicationAlive(true);
-        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
         loadData();
     }
 

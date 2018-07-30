@@ -2,18 +2,18 @@ package com.example.vidbregar.bluepodcast.viewmodel;
 
 import android.arch.lifecycle.ViewModelProvider;
 
-import com.example.vidbregar.bluepodcast.model.network.PodcastClient;
+import com.example.vidbregar.bluepodcast.model.network.PodcastService;
 
 public class SearchViewModelFactory implements ViewModelProvider.Factory {
 
-    private final PodcastClient podcastClient;
+    private final PodcastService podcastService;
 
-    public SearchViewModelFactory(PodcastClient podcastClient) {
-        this.podcastClient = podcastClient;
+    public SearchViewModelFactory(PodcastService podcastService) {
+        this.podcastService = podcastService;
     }
 
     @Override
     public SearchViewModel create(Class modelClass) {
-        return new SearchViewModel(podcastClient);
+        return new SearchViewModel(podcastService);
     }
 }

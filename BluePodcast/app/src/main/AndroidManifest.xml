@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".BluePodcastApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,14 +21,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.player.PlayerActivity"
-            android:parentActivityName=".ui.main.MainActivity"/>
+        <activity
+            android:name=".ui.player.PlayerActivity"
+            android:parentActivityName=".ui.main.MainActivity" />
 
         <service android:name=".ui.player.PlayerService" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="${fabricApiKey}"/>
+            android:value="${fabricApiKey}" />
 
     </application>
 

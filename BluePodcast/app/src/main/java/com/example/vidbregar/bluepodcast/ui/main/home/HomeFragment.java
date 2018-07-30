@@ -26,7 +26,6 @@ import com.example.vidbregar.bluepodcast.BuildConfig;
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
 import com.example.vidbregar.bluepodcast.model.data.Episode;
-import com.example.vidbregar.bluepodcast.model.network.PodcastClient;
 import com.example.vidbregar.bluepodcast.ui.main.MainActivity;
 import com.example.vidbregar.bluepodcast.ui.main.home.adapter.BestPodcastsAdapter;
 import com.example.vidbregar.bluepodcast.ui.main.home.adapter.EpisodesAdapter;
@@ -34,15 +33,17 @@ import com.example.vidbregar.bluepodcast.ui.main.home.adapter.GenrePodcastsAdapt
 import com.example.vidbregar.bluepodcast.ui.main.home.listener.EpisodeClickListener;
 import com.example.vidbregar.bluepodcast.ui.main.home.listener.PodcastClickListener;
 import com.example.vidbregar.bluepodcast.ui.player.PlayerActivity;
-import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModelFactory;
 import com.squareup.picasso.Picasso;
 
 import org.jsoup.Jsoup;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.AndroidSupportInjection;
 
 public class HomeFragment extends Fragment implements PodcastClickListener,
         EpisodeClickListener,
@@ -50,8 +51,9 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
 
     private Context context;
     private PodcastViewModel podcastViewModel;
-    private PodcastClient podcastClient;
-    private SharedPreferencesUtil sharedPreferencesUtil;
+
+    @Inject
+    PodcastViewModelFactory podcastViewModelFactory;
 
     @BindView(R.id.scene_root)
     FrameLayout sceneRoot;
@@ -97,9 +99,7 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        podcastClient = new PodcastClient();
-        sharedPreferencesUtil = new SharedPreferencesUtil(getActivity().getApplicationContext());
-        PodcastViewModelFactory podcastViewModelFactory = new PodcastViewModelFactory(podcastClient, sharedPreferencesUtil);
+        AndroidSupportInjection.inject(this);
         podcastViewModel = ViewModelProviders.of(getActivity(), podcastViewModelFactory).get(PodcastViewModel.class);
         // Used for handling back button when podcast detail layout is displayed
         ((MainActivity) getActivity()).setOnBackPressedListener(this);

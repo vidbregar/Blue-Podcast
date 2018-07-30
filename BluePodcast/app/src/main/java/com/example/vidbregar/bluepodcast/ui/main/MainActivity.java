@@ -1,6 +1,7 @@
 package com.example.vidbregar.bluepodcast.ui.main;
 
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,16 +11,25 @@ import com.crashlytics.android.Crashlytics;
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HasSupportFragmentInjector {
 
     private ScreenSlidePagerAdapter screenSlidePagerAdapter;
     private MenuItem prevMenuItem;
     private SharedPreferencesUtil sharedPreferencesUtil;
     private OnBackPressedListener onBackPressedListener;
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
 
     @BindView(R.id.view_pager)
     NonSwipeableViewPager viewPager;
@@ -34,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
@@ -117,5 +128,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         sharedPreferencesUtil.setIsMainActivityAlive(false);
+    }
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return fragmentDispatchingAndroidInjector;
     }
 }

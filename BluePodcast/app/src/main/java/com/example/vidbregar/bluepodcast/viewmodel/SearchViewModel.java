@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModel;
 
 import com.example.vidbregar.bluepodcast.BuildConfig;
 import com.example.vidbregar.bluepodcast.model.data.Search;
-import com.example.vidbregar.bluepodcast.model.network.PodcastClient;
+import com.example.vidbregar.bluepodcast.model.network.PodcastService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,16 +16,16 @@ public class SearchViewModel extends ViewModel {
 
     private static final String API_KEY = BuildConfig.LISTEN_NOTES_API_KEY;
 
-    private PodcastClient podcastClient;
+    private PodcastService podcastService;
     private MutableLiveData<Search> searchLiveData;
 
-    public SearchViewModel(PodcastClient podcastClient) {
-        this.podcastClient = podcastClient;
+    public SearchViewModel(PodcastService podcastService) {
+        this.podcastService = podcastService;
         this.searchLiveData = new MutableLiveData<>();
     }
 
     public void search(String query) {
-        Call<Search> searchCall = podcastClient.getPodcastService().search(API_KEY, query);
+        Call<Search> searchCall = podcastService.search(API_KEY, query);
         searchCall.enqueue(new Callback<Search>() {
             @Override
             public void onResponse(Call<Search> call, Response<Search> response) {
