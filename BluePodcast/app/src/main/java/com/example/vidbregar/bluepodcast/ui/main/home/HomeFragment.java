@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.transition.TransitionManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,6 +53,8 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
     private PodcastClient podcastClient;
     private SharedPreferencesUtil sharedPreferencesUtil;
 
+    @BindView(R.id.scene_root)
+    FrameLayout sceneRoot;
     // Podcasts container
     @BindView(R.id.podcasts_container)
     ConstraintLayout podcastsContainer;
@@ -156,13 +160,14 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
 
     @Override
     public void onPodcastClickListener(Channel podcast) {
+        podcastsContainer.setVisibility(View.GONE);
         podcastViewModel.setIsOnPodcastDetailLayout(true);
         podcastViewModel.getEpisodesFromApi(podcast.getId());
-        podcastsContainer.setVisibility(View.GONE);
-        podcastDetailContainer.setVisibility(View.VISIBLE);
         podcastViewModel.setSelectedPodcast(podcast);
         loadPodcastData(podcast);
         displayUpNavigation();
+        TransitionManager.beginDelayedTransition(sceneRoot);
+        podcastDetailContainer.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -202,12 +207,13 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
 
     private void displayPodcastsList() {
         podcastDetailContainer.setVisibility(View.GONE);
-        podcastsContainer.setVisibility(View.VISIBLE);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
         podcastViewModel.setIsOnPodcastDetailLayout(false);
         podcastViewModel.setSelectedPodcast(null);
         setHasOptionsMenu(false);
+        TransitionManager.beginDelayedTransition(sceneRoot);
+        podcastsContainer.setVisibility(View.VISIBLE);
     }
 
     private void observeEpisodes() {
