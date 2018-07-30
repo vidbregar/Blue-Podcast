@@ -20,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
@@ -177,7 +178,7 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
 
         searchView.setOnEditorActionListener((textView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                performSearch(textView.getText().toString());
+                performSearch(textView.getText().toString().trim());
                 hideKeyboard(searchView);
                 searchViewContainer.requestFocus();
                 return true;
@@ -187,11 +188,13 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
     }
 
     private void performSearch(String query) {
-        searchLoadingContainer.setVisibility(View.VISIBLE);
-        noResultsFoundContainer.setVisibility(View.GONE);
-        searchResultsContainer.setVisibility(View.GONE);
-        searchViewModel.search(query);
-        logToFirebase(query);
+        if (!query.isEmpty()) {
+            searchLoadingContainer.setVisibility(View.VISIBLE);
+            noResultsFoundContainer.setVisibility(View.GONE);
+            searchResultsContainer.setVisibility(View.GONE);
+            searchViewModel.search(query);
+            logToFirebase(query);
+        }
     }
 
     private void logToFirebase(String query) {
