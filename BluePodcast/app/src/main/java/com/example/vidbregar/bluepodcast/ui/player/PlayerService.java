@@ -1,6 +1,8 @@
 package com.example.vidbregar.bluepodcast.ui.player;
 
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -14,6 +16,7 @@ import android.text.TextUtils;
 
 import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeEntity;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
+import com.example.vidbregar.bluepodcast.widget.BluePodcastWidget;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -32,7 +35,6 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.squareup.picasso.Picasso;
 
 import static com.example.vidbregar.bluepodcast.ui.player.PlayerConstants.*;
 
@@ -164,6 +166,7 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
             } else {
                 stopForeground(true);
                 stopSelf();
+                widgetNoEpisodePlaying();
             }
             notificationUtil.cancelNotification();
         }
@@ -219,9 +222,15 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
                 break;
             case Player.STATE_IDLE:
                 playerStatus = IDLE;
+                widgetNoEpisodePlaying();
                 break;
             case Player.STATE_READY:
                 playerStatus = playWhenReady ? PLAYING : PAUSED;
+                if (playWhenReady) {
+                    widgetPlay();
+                } else {
+                    widgetPause();
+                }
                 break;
             default:
                 playerStatus = IDLE;
@@ -253,6 +262,40 @@ public class PlayerService extends Service implements AudioManager.OnAudioFocusC
     public void stop() {
         simpleExoPlayer.stop();
         audioManager.abandonAudioFocus(this);
+    }
+
+    private void widgetPause() {
+        Intent intent = new Intent(this, BluePodcastWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] ids = AppWidgetManager.getInstance(getApplication())
+                .getAppWidgetIds(new ComponentName(getApplication(), BluePodcastWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        intent.putExtra(BluePodcastWidget.WIDGET_EPISODE_TITLE_INTENT_EXTRA, episode.getEpisodeTitle());
+        intent.putExtra(BluePodcastWidget.WIDGET_THUMBNAIL_URL_INTENT_EXTRA, episode.getThumbnailUrl());
+        intent.putExtra(BluePodcastWidget.WIDGET_IS_PLAYING_INTENT_EXTRA, false);
+        sendBroadcast(intent);
+    }
+
+    private void widgetPlay() {
+        Intent intent = new Intent(this, BluePodcastWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] ids = AppWidgetManager.getInstance(getApplication())
+                .getAppWidgetIds(new ComponentName(getApplication(), BluePodcastWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        intent.putExtra(BluePodcastWidget.WIDGET_EPISODE_TITLE_INTENT_EXTRA, episode.getEpisodeTitle());
+        intent.putExtra(BluePodcastWidget.WIDGET_THUMBNAIL_URL_INTENT_EXTRA, episode.getThumbnailUrl());
+        intent.putExtra(BluePodcastWidget.WIDGET_IS_PLAYING_INTENT_EXTRA, true);
+        sendBroadcast(intent);
+    }
+
+    private void widgetNoEpisodePlaying() {
+        Intent intent = new Intent(this, BluePodcastWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int[] ids = AppWidgetManager.getInstance(getApplication())
+                .getAppWidgetIds(new ComponentName(getApplication(), BluePodcastWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        intent.putExtra(BluePodcastWidget.WIDGET_NO_EPISODE_PLAYING_INTENT_EXTRA, "");
+        sendBroadcast(intent);
     }
 
     @Override

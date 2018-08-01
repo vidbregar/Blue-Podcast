@@ -23,7 +23,7 @@ public class PodcastViewModel extends ViewModel {
     private static final int COMEDY_GENRE_ID = 133;
     private static final int BUSINESS_GENRE_ID = 93;
     private static final int HEALTH_GENRE_ID = 88;
-    private static final String API_KEY = BuildConfig.LISTEN_NOTES_API_KEY;
+    private static final String LISTEN_NOTES_API_KEY = BuildConfig.LISTEN_NOTES_API_KEY;
 
     private PodcastService podcastService;
     // Podcasts
@@ -83,7 +83,7 @@ public class PodcastViewModel extends ViewModel {
     }
 
     public void getEpisodesFromApi(String podcastId) {
-        Call<Podcast> podcastCall = podcastService.getPodcast(API_KEY, podcastId);
+        Call<Podcast> podcastCall = podcastService.getPodcast(LISTEN_NOTES_API_KEY, podcastId);
         podcastCall.enqueue(new Callback<Podcast>() {
             @Override
             public void onResponse(Call<Podcast> call, Response<Podcast> response) {
@@ -101,7 +101,7 @@ public class PodcastViewModel extends ViewModel {
     }
 
     private void getBestPodcasts() {
-        Call<PodcastGenre> bestPodcastsCall = podcastService.getBestPodcasts(API_KEY);
+        Call<PodcastGenre> bestPodcastsCall = podcastService.getBestPodcasts(LISTEN_NOTES_API_KEY);
         bestPodcastsCall.enqueue(new Callback<PodcastGenre>() {
             @Override
             public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {
@@ -119,7 +119,7 @@ public class PodcastViewModel extends ViewModel {
     }
 
     private void getComedyPodcasts() {
-        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(API_KEY, COMEDY_GENRE_ID);
+        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(LISTEN_NOTES_API_KEY, COMEDY_GENRE_ID);
         comedyPodcastsCall.enqueue(new Callback<PodcastGenre>() {
             @Override
             public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {
@@ -137,7 +137,7 @@ public class PodcastViewModel extends ViewModel {
     }
 
     private void getBusinessPodcasts() {
-        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(API_KEY, BUSINESS_GENRE_ID);
+        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(LISTEN_NOTES_API_KEY, BUSINESS_GENRE_ID);
         comedyPodcastsCall.enqueue(new Callback<PodcastGenre>() {
             @Override
             public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {
@@ -155,7 +155,7 @@ public class PodcastViewModel extends ViewModel {
     }
 
     private void getHealthPodcasts() {
-        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(API_KEY, HEALTH_GENRE_ID);
+        Call<PodcastGenre> comedyPodcastsCall = podcastService.getGenrePodcasts(LISTEN_NOTES_API_KEY, HEALTH_GENRE_ID);
         comedyPodcastsCall.enqueue(new Callback<PodcastGenre>() {
             @Override
             public void onResponse(Call<PodcastGenre> call, Response<PodcastGenre> response) {

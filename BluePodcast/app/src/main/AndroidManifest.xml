@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +19,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.player.PlayerActivity"
             android:parentActivityName=".ui.main.MainActivity" />
@@ -31,6 +29,17 @@
             android:name="io.fabric.ApiKey"
             android:value="${fabricApiKey}" />
 
+        <receiver android:name=".widget.BluePodcastWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.example.vidbregar.bluepodcast.PLAY_BUTTON_CLICKED_ACTION" />
+                <action android:name="com.example.vidbregar.bluepodcast.PAUSE_BUTTON_CLICKED_ACTION" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/blue_podcast_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
