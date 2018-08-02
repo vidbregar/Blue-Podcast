@@ -20,6 +20,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.data.Channel;
@@ -186,12 +187,14 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
     }
 
     private void performSearch(String query) {
-        if (!query.isEmpty()) {
+        if (!query.trim().isEmpty()) {
             searchLoadingContainer.setVisibility(View.VISIBLE);
             noResultsFoundContainer.setVisibility(View.GONE);
             searchResultsContainer.setVisibility(View.GONE);
             searchViewModel.search(query);
             searchViewModel.logEventToFirebase(query);
+        } else {
+            Toast.makeText(context, R.string.no_input_search_error_message, Toast.LENGTH_SHORT).show();
         }
     }
 

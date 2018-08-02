@@ -25,4 +25,5 @@
     <string name="clear_query_button_content_description">Clear query button</string>
     <string name="play_previous_episode">Click to play</string>
     <string name="listen_notes_watermark_content_description">Listen notes watermark</string>
+    <string name="no_input_search_error_message">Please enter some data</string>
 </resources>
