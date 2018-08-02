@@ -136,6 +136,18 @@
             android:paddingBottom="8dp"
             android:visibility="gone">
 
+            <ImageView
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/listen_notes_watermark_content_description"
+                android:scaleType="centerCrop"
+                android:src="@drawable/listen_notes_watermark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/best_podcasts_label"
                 android:layout_width="0dp"
