@@ -15,6 +15,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import android.text.TextUtils;
 
 import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeEntity;
+import com.example.vidbregar.bluepodcast.util.NotificationUtil;
 import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.widget.BluePodcastWidget;
 import com.google.android.exoplayer2.DefaultRenderersFactory;

@@ -25,8 +25,10 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
 
     private ScreenSlidePagerAdapter screenSlidePagerAdapter;
     private MenuItem prevMenuItem;
-    private SharedPreferencesUtil sharedPreferencesUtil;
     private OnBackPressedListener onBackPressedListener;
+
+    @Inject
+    SharedPreferencesUtil sharedPreferencesUtil;
 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentDispatchingAndroidInjector;
@@ -51,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         ButterKnife.bind(this);
         setUpViewPager();
         setUpBottomNavigation();
-        this.sharedPreferencesUtil = new SharedPreferencesUtil(getApplicationContext());
         sharedPreferencesUtil.setIsMainActivityAlive(true);
     }
 

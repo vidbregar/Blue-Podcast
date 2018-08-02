@@ -8,6 +8,7 @@ import com.example.vidbregar.bluepodcast.viewmodel.FavoritesViewModelFactory;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModelFactory;
 import com.example.vidbregar.bluepodcast.viewmodel.PodcastViewModelFactory;
 import com.example.vidbregar.bluepodcast.viewmodel.SearchViewModelFactory;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import javax.inject.Singleton;
 
@@ -15,7 +16,8 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(includes = {DatabaseModule.class,
-        NetworkModule.class})
+        NetworkModule.class,
+        FirebaseModule.class})
 public class ViewModelFactoryModule {
 
     @Singleton
@@ -27,14 +29,16 @@ public class ViewModelFactoryModule {
     @Singleton
     @Provides
     PlayerViewModelFactory providePlayerViewModelFactory(EpisodeDatabase episodeDatabase,
-                                                         FavoritesDatabase favoritesDatabase) {
-        return new PlayerViewModelFactory(episodeDatabase, favoritesDatabase);
+                                                         FavoritesDatabase favoritesDatabase,
+                                                         FirebaseAnalytics firebaseAnalytics) {
+        return new PlayerViewModelFactory(episodeDatabase, favoritesDatabase, firebaseAnalytics);
     }
 
     @Singleton
     @Provides
-    SearchViewModelFactory provideSearchViewModelFactory(PodcastService podcastService) {
-        return new SearchViewModelFactory(podcastService);
+    SearchViewModelFactory provideSearchViewModelFactory(PodcastService podcastService,
+                                                         FirebaseAnalytics firebaseAnalytics) {
+        return new SearchViewModelFactory(podcastService, firebaseAnalytics);
     }
 
     @Singleton

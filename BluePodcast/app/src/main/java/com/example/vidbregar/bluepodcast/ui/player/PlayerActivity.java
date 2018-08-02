@@ -20,7 +20,6 @@ import com.example.vidbregar.bluepodcast.util.SharedPreferencesUtil;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.PlayerViewModelFactory;
 import com.google.android.exoplayer2.ui.PlayerControlView;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
@@ -35,9 +34,6 @@ public class PlayerActivity extends AppCompatActivity {
     public static final String INTENT_EXTRA_PODCAST = "intent-extra-podcast";
     public static final String INTENT_EXTRA_EPISODE = "intent-extra-episode";
 
-    private static final String EPISODE_TITLE_FIREBASE_PARAM = "episode_title";
-    private static final String ADD_TO_FAVORITES_FIREBASE_EVENT = "add_to_favorites";
-
     private PlayerViewModel playerViewModel;
     private PlayerService playerService;
     private EpisodeEntity episodeEntity;
@@ -46,8 +42,6 @@ public class PlayerActivity extends AppCompatActivity {
     PlayerViewModelFactory playerViewModelFactory;
     @Inject
     SharedPreferencesUtil sharedPreferencesUtil;
-    @Inject
-    FirebaseAnalytics firebaseAnalytics;
 
     @BindView(R.id.player_view)
     PlayerControlView playerControlView;
@@ -102,18 +96,12 @@ public class PlayerActivity extends AppCompatActivity {
             if (isChecked) {
                 playerViewModel.addFavorite(episodeEntity);
                 playerViewModel.setIsAddedToFavorites(true);
-                logToFirebase(episodeEntity.getEpisodeTitle());
+                playerViewModel.logToFirebase(episodeEntity.getEpisodeTitle());
             } else {
                 playerViewModel.removeFavorite(episodeEntity);
                 playerViewModel.setIsAddedToFavorites(false);
             }
         });
-    }
-
-    private void logToFirebase(String episodeTitle) {
-        Bundle bundle = new Bundle();
-        bundle.putString(EPISODE_TITLE_FIREBASE_PARAM, episodeTitle);
-        firebaseAnalytics.logEvent(ADD_TO_FAVORITES_FIREBASE_EVENT, bundle);
     }
 
     private void restoreFavoritesState() {

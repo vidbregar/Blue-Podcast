@@ -30,7 +30,6 @@ import com.example.vidbregar.bluepodcast.ui.main.search.listener.SearchResultCli
 import com.example.vidbregar.bluepodcast.ui.player.PlayerActivity;
 import com.example.vidbregar.bluepodcast.viewmodel.SearchViewModel;
 import com.example.vidbregar.bluepodcast.viewmodel.SearchViewModelFactory;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import javax.inject.Inject;
 
@@ -43,8 +42,6 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
     private Context context;
     private SearchViewModel searchViewModel;
 
-    @Inject
-    FirebaseAnalytics firebaseAnalytics;
     @Inject
     SearchViewModelFactory searchViewModelFactory;
 
@@ -194,14 +191,8 @@ public class SearchFragment extends Fragment implements SearchResultClickListene
             noResultsFoundContainer.setVisibility(View.GONE);
             searchResultsContainer.setVisibility(View.GONE);
             searchViewModel.search(query);
-            logToFirebase(query);
+            searchViewModel.logEventToFirebase(query);
         }
-    }
-
-    private void logToFirebase(String query) {
-        Bundle bundle = new Bundle();
-        bundle.putString(FirebaseAnalytics.Param.SEARCH_TERM, query);
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH, bundle);
     }
 
     private void setUpDismissSearchButton() {

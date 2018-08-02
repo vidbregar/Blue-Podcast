@@ -1,4 +1,4 @@
-package com.example.vidbregar.bluepodcast.ui.player;
+package com.example.vidbregar.bluepodcast.util;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,6 +13,8 @@ import static com.example.vidbregar.bluepodcast.ui.player.PlayerConstants.*;
 
 import com.example.vidbregar.bluepodcast.R;
 import com.example.vidbregar.bluepodcast.model.database.episode.EpisodeEntity;
+import com.example.vidbregar.bluepodcast.ui.player.PlayerActivity;
+import com.example.vidbregar.bluepodcast.ui.player.PlayerService;
 
 public class NotificationUtil {
 
