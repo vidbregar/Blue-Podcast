@@ -19,7 +19,7 @@ staff picked, featured and popular podcasts.
 ![player_screenshot](https://user-images.githubusercontent.com/38587571/43674271-a4c4e8f0-97d1-11e8-83b1-3870b5b24a0b.png)
 
 ## Install Instructions
-Open BluePodcast/gradle.properties and add the following fields:
+Create a BluePodcast/gradle.properties file and add the following fields:
 
 LISTEN_NOTES_API_KEY="your_api_key"
 
