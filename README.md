@@ -16,7 +16,7 @@ staff picked, featured and popular podcasts.
 
 ![favorites_screenshot](https://user-images.githubusercontent.com/38587571/43673319-268f0048-97c1-11e8-9118-f8e74a153d65.png)
 
-![player_screenshot](https://user-images.githubusercontent.com/38587571/43673321-26c1c12c-97c1-11e8-9cfe-c2729074640f.png)
+![player_screenshot](https://user-images.githubusercontent.com/38587571/43674271-a4c4e8f0-97d1-11e8-83b1-3870b5b24a0b.png)
 
 ## Install Instructions
 Open BluePodcast/gradle.properties and add the following fields:
