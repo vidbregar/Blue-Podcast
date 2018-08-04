@@ -4,12 +4,10 @@ apply plugin: 'io.fabric'
 android {
     signingConfigs {
         signConfig {
-            Properties props = new Properties()
-            props.load(new FileInputStream(new File('secrets.properties')))
-            keyAlias props['KEY_ALIAS']
-            keyPassword props['KEY_PASSWORD']
-            storeFile file(props['STORE_FILE'])
-            storePassword props['STORE_PASSWORD']
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file(STORE_FILE)
+            storePassword STORE_PASSWORD
         }
     }
     compileSdkVersion 27
@@ -20,12 +18,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [fabricApiKey: getFabricApiKey()]
+        manifestPlaceholders = [fabricApiKey: FABRIC_API_KEY]
         signingConfig signingConfigs.signConfig
     }
     buildTypes {
         applicationVariants.all { variant ->
-            variant.buildConfigField "String", "LISTEN_NOTES_API_KEY", "\"" + getListenNotesApiKey() + "\""
+            variant.buildConfigField "String", "LISTEN_NOTES_API_KEY", LISTEN_NOTES_API_KEY
         }
         release {
             minifyEnabled false
@@ -49,18 +47,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-}
-
-static def getListenNotesApiKey() {
-    Properties props = new Properties()
-    props.load(new FileInputStream(new File('secrets.properties')))
-    return props['LISTEN_NOTES_API_KEY']
-}
-
-static def getFabricApiKey() {
-    Properties props = new Properties()
-    props.load(new FileInputStream(new File('secrets.properties')))
-    return props['FABRIC_API_KEY']
 }
 
 dependencies {
