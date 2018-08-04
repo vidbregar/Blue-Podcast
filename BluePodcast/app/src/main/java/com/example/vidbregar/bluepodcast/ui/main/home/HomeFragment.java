@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.transition.TransitionManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,8 +54,6 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
     @Inject
     PodcastViewModelFactory podcastViewModelFactory;
 
-    @BindView(R.id.scene_root)
-    FrameLayout sceneRoot;
     // Podcasts container
     @BindView(R.id.podcasts_container)
     ConstraintLayout podcastsContainer;
@@ -166,7 +163,6 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
         podcastViewModel.setSelectedPodcast(podcast);
         loadPodcastData(podcast);
         displayUpNavigation();
-        TransitionManager.beginDelayedTransition(sceneRoot);
         podcastDetailContainer.setVisibility(View.VISIBLE);
     }
 
@@ -212,7 +208,6 @@ public class HomeFragment extends Fragment implements PodcastClickListener,
         podcastViewModel.setIsOnPodcastDetailLayout(false);
         podcastViewModel.setSelectedPodcast(null);
         setHasOptionsMenu(false);
-        TransitionManager.beginDelayedTransition(sceneRoot);
         podcastsContainer.setVisibility(View.VISIBLE);
     }
 
