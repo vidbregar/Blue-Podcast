@@ -64,8 +64,6 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 
-secrets.properties
-
 # OS-specific files
 .DS_Store
 .DS_Store?
@@ -74,6 +72,9 @@ secrets.properties
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Secrets
+gradle.properties
 
 # Firebase
 google-services.json
