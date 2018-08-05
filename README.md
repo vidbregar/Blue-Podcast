@@ -1,4 +1,4 @@
-![Banner](https://user-images.githubusercontent.com/38587571/43672828-59a8d84c-97b6-11e8-8f94-5adab1604297.png)
+![Banner](https://user-images.githubusercontent.com/38587571/43682657-9a601d6c-987b-11e8-9633-ce8677da3baf.png)
 
 ## Description
 Whether you want to relax, make your commute more interesting, laugh like never before, or
@@ -10,13 +10,13 @@ Blue Podcast has a very modern, beautiful and in intuitive design. It has a rich
 staff picked, featured and popular podcasts.
 
 ## Screenshots
-![home_screenshot](https://user-images.githubusercontent.com/38587571/43673320-26a7d622-97c1-11e8-999e-91714407892a.png)
+![Home Screenshot](https://user-images.githubusercontent.com/38587571/43682703-b08bd968-987c-11e8-80b4-eee7598db663.png)
 
-![search_screenshot](https://user-images.githubusercontent.com/38587571/43673322-26dca8de-97c1-11e8-98c4-60c30551e20d.png)
+![Search Screenshot](https://user-images.githubusercontent.com/38587571/43682700-aecf20e4-987c-11e8-8dbe-06ffefe835e1.png)
 
-![favorites_screenshot](https://user-images.githubusercontent.com/38587571/43673319-268f0048-97c1-11e8-9118-f8e74a153d65.png)
+![Favorites Screenshot](https://user-images.githubusercontent.com/38587571/43682702-b03f190c-987c-11e8-88f2-d5b905c7fa69.png)
 
-![player_screenshot](https://user-images.githubusercontent.com/38587571/43674271-a4c4e8f0-97d1-11e8-83b1-3870b5b24a0b.png)
+![Player Screenshot](https://user-images.githubusercontent.com/38587571/43682699-aeb5e4f8-987c-11e8-9215-f488ec16dbe5.png)
 
 ## Install Instructions
 Create a **BluePodcast/gradle.properties** file and add the following fields:
