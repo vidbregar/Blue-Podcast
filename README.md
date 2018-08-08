@@ -6,7 +6,7 @@ learn something new, Blue Podcast has you covered.
 It offers a huge amount of podcasts which talk about many different topics, such as
 business & finance, reality stories, entrepreneurship, design, comedy, education, fitness &
 health, movies and much more.
-Blue Podcast has a very modern, beautiful and in intuitive design. It has a rich selection of
+Blue Podcast has a very modern, beautiful and intuitive design. It has a rich selection of
 staff picked, featured and popular podcasts.
 
 ## Screenshots
@@ -36,7 +36,7 @@ STORE_PASSWORD=key_store_password
 <span style="color:red">Note that the LISTEN_NOTES_API_KEY has to be surrounded by <b>double quotes ("")</b></span>
 
 
-Blue Podcast is also connected to **Firebase**, so it requires google-services.json file. You can follow instructions [here](https://firebase.google.com/docs/android/setup). Note that the app is available in two falvors (free and paid) when connecting it to the Firebase. A helpful [resource](https://medium.com/@Miqubel/multiple-build-types-in-firebase-on-android-6f6715f6dd83)
+Blue Podcast is connected to **Firebase**, so it requires google-services.json file. You can follow instructions [here](https://firebase.google.com/docs/android/setup). Note that the app is available in two falvors (free and paid) when connecting it to the Firebase. A helpful [resource](https://medium.com/@Miqubel/multiple-build-types-in-firebase-on-android-6f6715f6dd83).
 
 ### API keys
 Listen Notes: [Get your Listen Notes API key here](https://market.mashape.com/listennotes/listennotes)
