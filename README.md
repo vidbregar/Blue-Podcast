@@ -42,3 +42,20 @@ Blue Podcast is also connected to **Firebase**, so it requires google-services.j
 Listen Notes: [Get your Listen Notes API key here](https://market.mashape.com/listennotes/listennotes)
 
 Fabric: [Get your Fabric API key here](https://fabric.io/home)
+
+## Libraries used
+
+- [Dagger 2](https://github.com/google/dagger)
+- [ExoPlayer](https://github.com/google/ExoPlayer)
+- [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+- [Room](https://developer.android.com/topic/libraries/architecture/room)
+- [Retorfit](http://square.github.io/retrofit/)
+- [OkHttp](http://square.github.io/okhttp/)
+- [Gson](https://github.com/google/gson)
+- [Butter Knife](http://jakewharton.github.io/butterknife/)
+- [Picasso](http://square.github.io/picasso/)
+- [Firebase Analytics & Crashlytics](https://firebase.google.com/docs/crashlytics/)
+- [AdMob](https://www.google.com/admob/)
+- [Jsoup](https://jsoup.org/)
+- [CircleImageView](https://github.com/hdodenhof/CircleImageView)
+- [RoundedImageView](https://github.com/vinc3m1/RoundedImageView)
