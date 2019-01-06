@@ -20,7 +20,7 @@ staff picked, featured and popular podcasts.
 
 ## Install Instructions
 Create a **BluePodcast/gradle.properties** file and add the following fields:
-
+```
 LISTEN_NOTES_API_KEY="your_api_key"
 
 FABRIC_API_KEY=your_api_key
@@ -32,7 +32,7 @@ KEY_PASSWORD=key_password
 STORE_FILE=key_store_file_path
 
 STORE_PASSWORD=key_store_password
-
+```
 <span style="color:red">Note that the LISTEN_NOTES_API_KEY has to be surrounded by <b>double quotes ("")</b></span>
 
 
